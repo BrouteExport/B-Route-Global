@@ -1,172 +1,163 @@
 import streamlit as st
-import random
-import pandas as pd
-from datetime import datetime
 
-# 1. Page Configuration
-st.set_page_config(page_title="B-Route Global | Enterprise Export", layout="wide", page_icon="🌐")
+# --- PAGE CONFIGURATION ---
+st.set_page_config(page_title="B-Route Global | Export Enterprise", layout="wide", page_icon="🌍")
 
-# --- ADVANCED PREMIUM CSS (FIXED & POLISHED) ---
+# --- PREMIUM WHITE & PURPLE THEME CSS ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-    html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-    .stApp { background-color: #f4f7f9; }
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap');
     
-    /* Header Banner */
-    .header-banner { 
-        background: linear-gradient(135deg, #001f3f 0%, #003366 100%); 
-        padding: 100px 40px; border-radius: 0 0 80px 80px; 
-        color: white; text-align: center; border-bottom: 8px solid #FFD700;
-        box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-    }
-
-    /* Product Cards */
-    .product-card { 
-        background: white; padding: 22px; border-radius: 20px; 
-        border: 1px solid #e2e8f0; border-top: 6px solid #1E3A8A;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.05); text-align: center;
-        transition: 0.4s; height: 100%; margin-bottom: 20px;
-    }
-    .product-card:hover { transform: translateY(-10px); border-top-color: #FFD700; }
+    .stApp { background-color: #FFFFFF; color: #2D3436; font-family: 'Poppins', sans-serif; }
     
-    .price-badge { 
-        background: #ebf4ff; color: #1E3A8A; padding: 6px 15px; 
-        border-radius: 15px; font-weight: 800; font-size: 17px; display: inline-block; margin-top: 10px;
-    }
-
-    .whatsapp-btn { 
-        background: linear-gradient(45deg, #25D366, #128C7E); color: white !important; 
-        padding: 15px; border-radius: 12px; text-decoration: none; font-weight: bold; 
-        display: block; text-align: center; margin-top: 20px; font-size: 18px;
-    }
-
-    /* Footer Section */
-    .footer-container { 
-        text-align: center; padding: 80px 20px; 
-        background-color: #ffffff; border-top: 2px solid #e2e8f0; margin-top: 100px;
-    }
-    .copyright-strip {
-        background: #001f3f; color: #FFD700; padding: 18px 40px; 
-        font-size: 16px; margin-top: 30px; border-radius: 50px; 
-        display: inline-block; font-weight: 700;
-    }
-    .prod-img { width: 100%; border-radius: 15px; height: 180px; object-fit: cover; }
+    /* Header Area */
+    .header-main { background: #6C5CE7; padding: 50px 20px; text-align: center; color: white; border-radius: 0 0 50px 50px; }
+    .logo-container { margin-bottom: 10px; }
+    .logo-title { font-family: 'Playfair Display', serif; font-size: 55px; font-weight: bold; margin: 0; letter-spacing: 2px; }
+    .contact-bar { background: #F1F2F6; padding: 15px; text-align: center; border-bottom: 3px solid #6C5CE7; font-weight: 600; color: #6C5CE7; font-size: 18px; margin-bottom: 30px; }
+    
+    /* About Us Section (Long) */
+    .about-box { background: #F9F9FF; padding: 45px; border-radius: 25px; border-left: 12px solid #6C5CE7; line-height: 1.9; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 50px; }
+    
+    /* Product Section */
+    .product-card { background: white; border: 1px solid #E0E0E0; border-radius: 20px; padding: 25px; margin-bottom: 40px; transition: 0.4s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+    .product-card:hover { transform: translateY(-10px); border-color: #6C5CE7; box-shadow: 0 15px 35px rgba(108, 92, 231, 0.2); }
+    .product-img { width: 100%; height: 350px; object-fit: cover; border-radius: 15px; margin-bottom: 20px; border: 1px solid #F1F2F6; }
+    .product-title { color: #6C5CE7; font-size: 28px; font-weight: 700; margin-bottom: 15px; border-bottom: 2px solid #F1F2F6; padding-bottom: 10px; }
+    
+    /* Form Styling */
+    .inquiry-container { background: #FDFDFF; padding: 40px; border-radius: 30px; border: 2px dashed #6C5CE7; }
+    
+    h2 { font-family: 'Playfair Display', serif; color: #2D3436; font-size: 38px; text-align: center; margin-bottom: 30px; }
+    .divider { height: 4px; width: 100px; background: #6C5CE7; margin: 0 auto 40px; border-radius: 2px; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- TRADE ENGINE (CURRENCY) ---
-exchange_rates = {"USD": 1.0, "INR": 83.40, "EUR": 0.92, "AED": 3.67}
-st.sidebar.markdown("### 🌍 Global Trade Desk")
-currency = st.sidebar.selectbox("Select Currency", ["USD", "INR", "EUR", "AED"])
-rate = exchange_rates[currency]
+# --- NAVIGATION ---
+st.sidebar.markdown("<h2 style='color:#6C5CE7;'>B-ROUTE NAV</h2>", unsafe_allow_html=True)
+selected_page = st.sidebar.radio("Navigate", ["🏠 Home & Enterprise Profile", "📦 30+ Export Catalog", "📩 Business Inquiry (RFQ)"])
 
-# --- SIDEBAR LOGO ---
-st.sidebar.markdown("""<div style="text-align:center; padding-bottom: 25px;">
-    <img src="https://cdn-icons-png.flaticon.com/512/3061/3061341.png" width="110" style="border-radius:50%; background:white; padding:10px; border:4px solid #FFD700;">
-    <h2 style='color: #1E3A8A; margin-top:15px; font-weight:800;'>B-ROUTE GLOBAL</h2>
-    <p style='color: #64748b;'>Export Excellence</p>
-</div>""", unsafe_allow_html=True)
-
-nav = st.sidebar.radio("Navigation", ["🏠 Home", "📦 Export Catalog", "📩 Bulk RFQ Portal", "⚙️ Quality Control", "📖 Our Legacy", "🔒 Admin Login"])
-st.sidebar.markdown(f'<a href="https://wa.me/918252402895" target="_blank" class="whatsapp-btn">💬 Chat with Director</a>', unsafe_allow_html=True)
-
-# --- PAGE LOGIC ---
-
-if nav == "🏠 Home":
-    st.markdown(f"""
-    <div class="header-banner">
-        <h1 style='font-size: 4.5em; letter-spacing: -2px;'>B-ROUTE GLOBAL</h1>
-        <p style='font-size: 26px; opacity:0.9;'>From Bihar's Heartland to the Global Market</p>
-        <div style='margin-top:40px;'>
-            <span style='background:#FFD700; color:#001f3f; padding:12px 30px; border-radius:50px; font-weight:800; margin-right:15px;'>APEDA CERTIFIED</span>
-            <span style='background:rgba(255,255,255,0.1); color:white; padding:12px 30px; border-radius:50px; font-weight:600; border: 1px solid white;'>IEC | FSSAI | MSME</span>
+# --- SHARED HEADER ---
+st.markdown("""
+    <div class="header-main">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/512/3061/3061341.png" width="80" style="filter: brightness(0) invert(1);">
         </div>
+        <h1 class="logo-title">B-ROUTE GLOBAL</h1>
+        <p style="font-size: 22px; opacity: 0.9; font-weight: 300;">Connecting Bihar's Excellence to World Markets</p>
+    </div>
+    <div class="contact-bar">
+        📍 Supaul, Bihar, India | 📞 +91 8252402895 | 📧 sumits6363@gmail.com
     </div>
     """, unsafe_allow_html=True)
-    st.write("##")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("Market Reach", "15+ Countries", "Active")
-    c2.metric("Procurement", "7500+ Metric Tons", "Annual")
-    c3.metric("Farmer Network", "3000+ Farmers", "Mithila")
 
-elif nav == "📦 Export Catalog":
-    st.title("💎 Premium Product Inventory")
+# --- PAGE 1: HOME & LONG ABOUT US ---
+if selected_page == "🏠 Home & Enterprise Profile":
+    st.markdown("<h2>About Our Enterprise</h2>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
     
-    products = [
-        {"name": "Mithila Makhana (Grade A)", "cat": "Agri", "price": 11.5, "img": "https://m.media-amazon.com/images/I/71R2o58C-rL._SL1500_.jpg"},
-        {"name": "Sunflower Seeds", "cat": "Agri", "price": 2.5, "img": "https://5.imimg.com/data5/SELLER/Default/2021/8/AW/AL/XG/13292150/sunflower-seeds-500x500.jpg"},
-        {"name": "Organic Moringa Powder", "cat": "Health", "price": 7.8, "img": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/YF/ML/11382582/organic-moringa-leaf-powder-500x500.jpg"},
-        {"name": "Premium Turmeric Finger", "cat": "Spices", "price": 2.2, "img": "https://5.imimg.com/data5/E/P/W/SELLER-3233857/turmeric-finger-500x500.jpg"},
-        {"name": "Seedless Tamarind", "cat": "Spices", "price": 1.9, "img": "https://5.imimg.com/data5/SELLER/Default/2023/1/RP/XH/XW/13936301/tamarind-500x500.jpg"},
-        {"name": "Red Chilli Flakes", "cat": "Spices", "price": 3.7, "img": "https://5.imimg.com/data5/SELLER/Default/2021/6/YQ/YF/TQ/13233181/red-chilli-flakes-500x500.jpg"},
-        {"name": "Psyllium Husk", "cat": "Health", "price": 9.2, "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/7174624/psyllium-husk-500x500.jpg"},
-        {"name": "Onion Powder", "cat": "Spices", "price": 4.3, "img": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/YF/ML/11382582/onion-powder-500x500.jpg"},
-        {"name": "Bihar Silk Fabric", "cat": "Textile", "price": 50.0, "img": "https://5.imimg.com/data5/SELLER/Default/2021/11/ND/TQ/SQ/3739777/silk-fabric-500x500.jpg"},
-        {"name": "Madhubani Painting", "cat": "Art", "price": 120.0, "img": "https://5.imimg.com/data5/ANDROID/Default/2021/3/GP/TC/HU/32688029/product-500x500.jpg"},
-        {"name": "Fresh Red Onion", "cat": "Fresh", "price": 0.45, "img": "https://5.imimg.com/data5/SELLER/Default/2023/8/337166113/onion-500x500.jpg"},
-        {"name": "Yellow Maize", "cat": "Grains", "price": 0.35, "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/7174624/yellow-maize-grain-500x500.jpeg"},
-        {"name": "1121 Basmati Rice", "cat": "Grains", "price": 1.4, "img": "https://5.imimg.com/data5/SELLER/Default/2023/1/TD/MB/XN/10705298/1121-basmati-rice-500x500.jpeg"},
-        {"name": "Incense Sticks", "cat": "Lifestyle", "price": 3.5, "img": "https://5.imimg.com/data5/SELLER/Default/2021/3/OW/WJ/ZK/122557577/premium-incense-sticks-500x500.jpg"}
+    st.markdown("""
+    <div class="about-box">
+        <h3 style="color:#6C5CE7;">The Bridge Between Bihar's Heartland and Global Markets</h3>
+        <p style="font-size: 17px;">
+        <b>B-Route Global Export</b> is a premier, government-recognized export house situated in the agriculturally rich district of <b>Supaul, Bihar</b>. Our mission is to transform the traditional farming landscape of Bihar into a global powerhouse. We specialize in the procurement, high-tech processing, and international distribution of premium commodities that are native to our fertile soil.
+        <br><br>
+        For decades, Bihar’s finest produce—like the GI-tagged <b>Mithila Makhana</b>—often stayed within local borders. B-Route Global was founded to change that narrative. We have built a direct-from-farm sourcing model that ensures every grain we export carries the <b>trust of the farmer</b> and the <b>quality of the global world market</b>. 
+        <br><br>
+        <b>Our Core Strengths & Global Trust:</b>
+        <ul>
+            <li><b>Strategic Sourcing:</b> We operate directly at the grassroots level with over 5,000+ local farmers, ensuring transparency and competitive pricing.</li>
+            <li><b>Quality Assurance:</b> Our processing units adhere to ISO and FSSAI standards. Every batch undergoes rigorous multi-level testing for moisture, size, and purity before reaching the destination port.</li>
+            <li><b>Bihar to World:</b> We currently facilitate exports to the <b>Middle East (UAE, Qatar), South East Asia, and European markets</b>, maintaining a 100% reliability record in logistics and delivery.</li>
+            <li><b>Sustainable Trade:</b> We believe in ethical business. By choosing B-Route, global buyers directly contribute to the economic upliftment of North Bihar’s rural economy.</li>
+        </ul>
+        Whether you are a wholesale importer in Dubai or a retail chain in the USA, B-Route Global guarantees <b>Grade-A quality</b>, professional communication, and seamless port-to-port delivery. We are not just selling products; we are delivering a promise of excellence from Bihar to the World.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.image("https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=2000", caption="B-Route Global: Excellence in Every Shipment")
+
+# --- PAGE 2: 30+ PRODUCT CATALOG (DETAILED) ---
+elif selected_page == "📦 30+ Export Catalog":
+    st.markdown("<h2>Global Export Catalog</h2>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    
+    # 30 Product Structure (Example of main items, you can repeat this for all 30)
+    catalog = [
+        {
+            "name": "Mithila Makhana (Premium Grade-A)",
+            "summary": "Our flagship product. Handpicked 5-star quality foxnuts (Gorgon Nuts) sourced from the Mithila region. These are 100% organic, processed in moisture-controlled environments to ensure maximum crunch and nutrition. Available in 18mm+ and 20mm+ sizes. We export these in bulk for high-end snacking industries globally. Rich in protein and antioxidants.",
+            "img": "https://m.media-amazon.com/images/I/71R2o58C-rL._SL1500_.jpg"
+        },
+        {
+            "name": "Yellow Maize (Non-GMO Feed Grade)",
+            "summary": "High-energy yellow maize with less than 12% moisture content. Sourced during the peak harvest season in Bihar to ensure the highest protein levels. Our maize is ideal for both human consumption and as high-grade animal feed for the poultry and cattle industries in South East Asia. Stored in climate-controlled silos to prevent aflatoxin.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/7174624/yellow-maize-grain-500x500.jpeg"
+        },
+        {
+            "name": "Bhagalpuri Silk (Traditional Tussar)",
+            "summary": "The world-famous 'Queen of Silk' from Bhagalpur, Bihar. This silk is known for its unique texture and natural deep gold sheen. We export raw silk fabric, sarees, and stoles to boutique fashion houses in Europe and America. Every meter is hand-checked for weave consistency and dye quality, representing centuries of Bihari craftsmanship.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2021/11/ND/TQ/SQ/3739777/silk-fabric-500x500.jpg"
+        },
+        {
+            "name": "Organic Turmeric (High Curcumin)",
+            "summary": "Grown in the mineral-rich soil of Bihar, our turmeric fingers boast a curcumin content of 4%+. We provide both whole fingers and polished powder. This is highly sought after by pharmaceutical and organic food industries in the West for its medicinal properties and vibrant natural color.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/XQ/YV/13292150/turmeric-finger-500x500.jpg"
+        }
     ]
-    
-    cat_filter = st.selectbox("Filter Category", ["All", "Agri", "Spices", "Fresh", "Grains", "Textile", "Art", "Health"])
-    filtered = products if cat_filter == "All" else [p for p in products if p['cat'] == cat_filter]
-    
-    cols = st.columns(4)
-    for idx, p in enumerate(filtered):
-        with cols[idx % 4]:
-            final_p = round(p['price'] * rate, 2)
-            st.markdown(f"""<div class="product-card">
-                <img src="{p['img']}" class="prod-img">
-                <h4>{p['name']}</h4>
-                <div class='price-badge'>{currency} {final_p} / Kg</div>
-            </div>""", unsafe_allow_html=True)
 
-elif nav == "📩 Bulk RFQ Portal":
-    st.title("📩 Official RFQ Request")
-    st.info("Handle bulk orders from 1 to 500 Metric Tons.")
-    with st.form("inquiry"):
-        c1, c2 = st.columns(2)
-        with c1:
-            name = st.text_input("Name *")
-            company = st.text_input("Company Name")
-            dest = st.selectbox("Destination", ["USA", "UAE", "UK", "Europe", "Vietnam", "Other"])
-        with c2:
-            port = st.text_input("Port of Discharge")
-            wa = st.text_input("WhatsApp No.")
-            pay = st.selectbox("Payment Mode", ["LC at Sight", "TT (30/70)", "SBLC"])
-            
-        prods = st.multiselect("Select Products", ["Makhana", "Sunflower Seeds", "Moringa", "Spices", "Silk", "Rice", "Maize"])
-        qty = st.slider("Required Quantity (MT)", 1, 500, 25)
-        
-        if st.form_submit_button("Submit Inquiry"):
-            st.success(f"Inquiry ID: BRG-{random.randint(1000, 9999)} sent to Director Sumit Kumar.")
-
-elif nav == "⚙️ Quality Control":
-    st.title("⚙️ Quality Assurance")
-    
-    st.write("B-Route Global follows global standards for sorting, grading, and packaging. Every batch is APEDA and FSSAI compliant.")
-
-elif nav == "📖 Our Legacy":
-    st.title("📖 The B-Route Story")
-    st.write("Founded by *Director Sumit Kumar*, B-Route Global stands for trust, quality, and the spirit of Bihar.")
-
-elif nav == "🔒 Admin Login":
-    if st.text_input("Admin ID") == "admin" and st.text_input("PIN", type="password") == "BiharExport123":
-        st.success("Welcome, Director.")
-
-# --- FINAL FOOTER (FIXED) ---
-st.markdown(f"""
-    <div class="footer-container">
-        <h2 style='color: #001f3f; font-weight: 800;'>B-ROUTE GLOBAL EXPORT</h2>
-        <p style='font-size: 18px;'><b>Head Office:</b> Supaul, Bihar, 852131<br>
-        <b>Director:</b> Sumit Kumar | <b>WA:</b> +91 8252402895<br>
-        <b>Email:</b> sumits6363@gmail.com</p>
-        <div class="copyright-strip">
-            © {datetime.now().year} B-Route Global Export | Powered by Bihar's Pride 🇮🇳
+    for prod in catalog:
+        st.markdown(f"""
+        <div class="product-card">
+            <div style="display: flex; flex-wrap: wrap; gap: 30px;">
+                <div style="flex: 1; min-width: 350px;">
+                    <img src="{prod['img']}" class="product-img">
+                </div>
+                <div style="flex: 1.5; min-width: 350px;">
+                    <h3 class="product-title">{prod['name']}</h3>
+                    <p style="font-size: 16px; color: #636E72;"><b>Product Summary:</b></p>
+                    <p style="font-size: 16px; line-height: 1.8;">{prod['summary']}</p>
+                    <p style="color: #6C5CE7; font-weight: bold; font-size: 20px;">Capacity: 1 to 500 Metric Tons</p>
+                    <a href="https://wa.me/918252402895" style="text-decoration:none;">
+                        <button style="background:#25D366; color:white; border:none; padding:12px 25px; border-radius:10px; cursor:pointer; font-weight:bold;">Order on WhatsApp</button>
+                    </a>
+                </div>
+            </div>
         </div>
-        <p style='margin-top: 20px; font-size: 12px; color: #94a3b8;'>APEDA | IEC | FSSAI | MSME REGISTERED</p>
+        """, unsafe_allow_html=True)
+    
+    st.info("Note: Full 30+ product list includes Basmati Rice, Wheat, Moringa, Sunflower Seeds, and more. Contact for the complete export catalog.")
+
+# --- PAGE 3: BUSINESS INQUIRY FORM (PRO) ---
+elif selected_page == "📩 Business Inquiry (RFQ)":
+    st.markdown("<h2>Request for Quotation (RFQ)</h2>", unsafe_allow_html=True)
+    st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+    
+    st.markdown('<div class="inquiry-container">', unsafe_allow_html=True)
+    with st.form("inquiry_form"):
+        col1, col2 = st.columns(2)
+        with col1:
+            st.text_input("Full Name / Company Name*", placeholder="e.g. Global Foods UAE")
+            st.text_input("Official Email Address*", placeholder="buyer@example.com")
+            st.selectbox("Select Product(s) of Interest", ["Makhana (Foxnuts)", "Maize", "Spices", "Silk/Textiles", "Rice/Grains", "Others"])
+        with col2:
+            st.text_input("Phone/WhatsApp (with Country Code)*", placeholder="+971-XXXX-XXXX")
+            st.selectbox("Inquiry Quantity", ["1 to 10 Tons (Trial)", "10 to 50 Tons", "50 to 100 Tons", "100 to 500 Tons (Bulk Container)"])
+            st.text_input("Target Port / Country", placeholder="Jebel Ali, Dubai / Hamburg, Germany")
+        
+        st.text_area("Detailed Order Message", placeholder="Please specify grading, packaging (e.g., 25kg PP Bags), and shipping terms (FOB/CIF)...")
+        
+        submit = st.form_submit_button("🚀 Submit Formal Inquiry")
+        if submit:
+            st.success("Success! Your inquiry has been sent to our Export Desk. We will contact you via Email/WhatsApp within 24 hours.")
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- FOOTER ---
+st.markdown("""
+    <div style="text-align:center; padding:60px 0; color:#B2BEC3; font-size:14px; border-top:1px solid #F1F2F6;">
+        <b>B-ROUTE GLOBAL EXPORT ENTERPRISE</b><br>
+        Head Office: Ward No. 10, Supaul, Bihar, India | PIN: 852131<br>
+        © 2026 All Rights Reserved | APEDA | FSSAI | IEC Certified
     </div>
     """, unsafe_allow_html=True)
- 
