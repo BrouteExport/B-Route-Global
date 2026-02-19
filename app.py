@@ -87,24 +87,105 @@ elif selected_page == "📦 30+ Export Catalog":
     catalog = [
         {
             "name": "Mithila Makhana (Premium Grade-A)",
-            "summary": "Our flagship product. Handpicked 5-star quality foxnuts (Gorgon Nuts) sourced from the Mithila region. These are 100% organic, processed in moisture-controlled environments to ensure maximum crunch and nutrition. Available in 18mm+ and 20mm+ sizes. We export these in bulk for high-end snacking industries globally. Rich in protein and antioxidants.",
+            "summary": "Our flagship product. Handpicked 5-star quality foxnuts sourced from the fertile ponds of Mithila, Bihar. These are 100% organic, processed in moisture-controlled environments to ensure maximum crunch and nutrition. Available in 18mm+ sizes. We export these in bulk for high-end snacking industries in USA and Europe. Rich in protein, gluten-free, and antioxidants.",
             "img": "https://m.media-amazon.com/images/I/71R2o58C-rL._SL1500_.jpg"
         },
         {
             "name": "Yellow Maize (Non-GMO Feed Grade)",
-            "summary": "High-energy yellow maize with less than 12% moisture content. Sourced during the peak harvest season in Bihar to ensure the highest protein levels. Our maize is ideal for both human consumption and as high-grade animal feed for the poultry and cattle industries in South East Asia. Stored in climate-controlled silos to prevent aflatoxin.",
+            "summary": "High-energy yellow maize with less than 12% moisture content. Sourced during the peak harvest season in the Koshi belt of Bihar to ensure the highest protein levels. Our maize is ideal for both human consumption and as high-grade animal feed for poultry industries in South East Asia. Stored in climate-controlled silos to prevent aflatoxin.",
             "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/7174624/yellow-maize-grain-500x500.jpeg"
         },
         {
             "name": "Bhagalpuri Silk (Traditional Tussar)",
-            "summary": "The world-famous 'Queen of Silk' from Bhagalpur, Bihar. This silk is known for its unique texture and natural deep gold sheen. We export raw silk fabric, sarees, and stoles to boutique fashion houses in Europe and America. Every meter is hand-checked for weave consistency and dye quality, representing centuries of Bihari craftsmanship.",
+            "summary": "The world-famous 'Queen of Silk' from Bhagalpur, Bihar. Known for its unique texture and natural deep gold sheen. We export raw silk fabric, sarees, and stoles to boutique fashion houses in Europe. Every meter is hand-checked for weave consistency, representing centuries of Bihari craftsmanship and heritage.",
             "img": "https://5.imimg.com/data5/SELLER/Default/2021/11/ND/TQ/SQ/3739777/silk-fabric-500x500.jpg"
         },
         {
             "name": "Organic Turmeric (High Curcumin)",
-            "summary": "Grown in the mineral-rich soil of Bihar, our turmeric fingers boast a curcumin content of 4%+. We provide both whole fingers and polished powder. This is highly sought after by pharmaceutical and organic food industries in the West for its medicinal properties and vibrant natural color.",
+            "summary": "Grown in mineral-rich soil, our turmeric fingers boast a curcumin content of 4.5%+. Highly sought after by pharma and organic food industries in the West for its medicinal properties. No artificial polish, 100% natural, and lab-tested for purity.",
             "img": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/XQ/YV/13292150/turmeric-finger-500x500.jpg"
+        },
+        {
+            "name": "Sattu (Roasted Gram Superfood)",
+            "summary": "Bihar's traditional high-protein superfood. Stone-ground from premium roasted chickpeas. We export finely sieved sattu for the global health-conscious market. Ideal for protein shakes and traditional recipes. High fiber and low glycemic index.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2023/3/295/AW/AL/XG/13292150/pure-sattu-500x500.jpg"
+        },
+        {
+            "name": "Aromatic Basmati Rice (1121 Sella)",
+            "summary": "Extra-long grain Basmati rice, aged for 24 months to enhance aroma and cooking length. Sourced from organic clusters. Grains are non-sticky and expand up to 2.5 times when cooked. Prime choice for Middle Eastern and European kitchens.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/12/SI/XN/EO/13292150/basmati-rice-500x500.jpg"
+        },
+        {
+            "name": "Moringa Leaf Powder (Pharma Grade)",
+            "summary": "The 'Miracle Tree' powder sourced from Bihar's organic farms. Shade-dried to retain 100% nutrients. Highly rich in iron, calcium, and Vitamin C. Used globally as a nutritional supplement and superfood additive.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2021/6/NS/MB/ZK/102377317/product-jpeg-500x500.jpg"
+        },
+        {
+            "name": "Dry Red Chilli (Teja Variety)",
+            "summary": "Grown in Bihar’s dry belt, our red chillies are famous for their high SHU (pungency) and vibrant red color. Stem-cut and sun-dried to ensure long shelf life. Exported in bulk for spice processors and sauce manufacturers.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2023/1/285/AW/AL/XG/13292150/chilli-powder-500x500.jpg"
+        },
+        {
+            "name": "Madhubani Hand-Painted Art (Export)",
+            "summary": "Traditional Madhubani paintings on handmade paper and canvas. Each piece is unique, made using natural dyes and twigs. We export these as premium wall decor and heritage collectibles to art galleries worldwide.",
+            "img": "https://m.media-amazon.com/images/I/91-H-045DML._SL1500_.jpg"
+        },
+        {
+            "name": "Sunflower Seeds (High Oil Content)",
+            "summary": "Premium bold sunflower seeds with high oil yield. Sourced from the river-bed farms of Bihar. Ideal for oil extraction and bird feed markets. Cleaned, graded, and moisture-controlled.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/11/SI/XN/EO/sunflower-seeds-500x500.jpg"
+        },
+        {
+            "name": "Organic Ginger (Dry/Sonth)",
+            "summary": "Bihar's sun-dried ginger is known for its high gingerol content and intense aroma. We export premium quality dry ginger fingers, cleaned and graded for the global spice and herbal tea industries. No sulfur treatment, 100% natural.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/XQ/YV/13292150/dry-ginger-500x500.jpg"
+        },
+        {
+            "name": "Bold Garlic (Export Grade)",
+            "summary": "Large-sized, white garlic bulbs with intense flavor. Sourced from the organic belts of North Bihar. These bulbs are sun-cured and graded to ensure a long shelf life during sea transit. Ideal for industrial processing and retail markets.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/garlic-500x500.jpg"
+        },
+        {
+            "name": "Green Cardamom (8mm Bold)",
+            "summary": "Premium bold green cardamom with a deep green color and high essential oil content. Sourced from organic plantations. Each pod is hand-sorted for size and quality. Exported to the Middle East for premium culinary use.",
+            "img": "https://m.media-amazon.com/images/I/61Nl-H6vHHL._SL1000_.jpg"
+        },
+        {
+            "name": "Black Pepper (Malabar Style)",
+            "summary": "High-grade black pepper with a pungent aroma and bold heat. Our pepper is steam-washed and lab-tested for purity. Perfect for spice grinders and global food processing units requiring consistent quality.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/11/SI/XN/EO/black-pepper-500x500.jpg"
+        },
+        {
+            "name": "Corriander Seeds (Eagle Quality)",
+            "summary": "Bright yellowish-green coriander seeds with high volatile oil. Sourced from Bihar's organic farms. These seeds are double-polished and machine-cleaned to meet international food safety standards.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2023/1/285/AW/AL/XG/coriander-seeds-500x500.jpg"
+        },
+        {
+            "name": "Natural Forest Honey",
+            "summary": "Unprocessed, raw honey collected from the wild forests. Rich in natural enzymes and pollen. We maintain strict cold-chain logistics to ensure the honey retains its medicinal properties for the global wellness market.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/12/SI/XN/EO/natural-honey-500x500.jpg"
+        },
+        {
+            "name": "Jute Shopping Bags (Eco-Friendly)",
+            "summary": "Golden fiber jute bags from Bihar. Biodegradable, durable, and stylish. We export these to European retail chains as a sustainable alternative to plastic. Custom branding and designs available for bulk orders.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2021/8/ND/TQ/SQ/jute-bag-500x500.jpg"
+        },
+        {
+            "name": "Mustard Seeds (Bold Yellow)",
+            "summary": "Premium yellow mustard seeds with high oil content and mild pungency. Sourced from North Bihar. Machine-cleaned and graded for use in gourmet mustard pastes and oil extraction globally.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/10/SI/XN/EO/mustard-seeds-500x500.jpg"
+        },
+        {
+            "name": "Flax Seeds (Organic Alsi)",
+            "summary": "High Omega-3 fatty acid content. Sourced from traditional farms. These seeds are cleaned and packed under vacuum to prevent oxidation. Highly popular in the European and American health-food sectors.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2022/11/SI/XN/EO/flax-seeds-500x500.jpg"
+        },
+        {
+            "name": "Cumin Seeds (Machine Cleaned)",
+            "summary": "Powerful aroma and high essential oil content. Our cumin is sourced from pesticide-free zones. It undergoes a 3-step cleaning process to ensure 99% purity, meeting strict EU and US import norms.",
+            "img": "https://5.imimg.com/data5/SELLER/Default/2023/1/285/AW/AL/XG/cumin-seeds-500x500.jpg"
         }
+        # Is tarah aapka catalog ab 20 heavy products ka ho gaya hai.
     ]
 
     for prod in catalog:
@@ -161,3 +242,4 @@ st.markdown("""
         © 2026 All Rights Reserved | APEDA | FSSAI | IEC Certified
     </div>
     """, unsafe_allow_html=True)
+
