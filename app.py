@@ -3,94 +3,100 @@ import streamlit as st
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="B-Route Global | Exporting Bihar to the World", layout="wide", page_icon="🌍")
 
-# --- CSS (PREMIUM CORPORATE INTERFACE) ---
+# --- CSS (PREMIUM EXPORT INTERFACE) ---
 st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
     .stApp { background-color: #050B15; color: white; font-family: 'Poppins', sans-serif; }
     
-    /* Premium Header */
+    /* Header Section */
     .header-container {
         background: linear-gradient(135deg, #001f3f, #1E90FF);
-        padding: 60px; border-radius: 0 0 50px 50px; text-align: center;
-        border-bottom: 5px solid #FFD700;
+        padding: 50px; border-radius: 0 0 40px 40px; text-align: center;
+        border-bottom: 4px solid #FFD700;
     }
     .circular-logo {
-        width: 170px; height: 170px; background: white; border-radius: 50%;
-        padding: 5px; border: 5px solid #FFD700; box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
+        width: 160px; height: 160px; background: white; border-radius: 50%;
+        padding: 5px; border: 4px solid #FFD700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
     }
-    .main-title { font-size: 55px; font-weight: 600; color: white; margin-top: 20px; letter-spacing: 4px; }
+    .main-title { font-size: 50px; font-weight: 600; color: white; margin-top: 15px; letter-spacing: 3px; }
     
-    /* Contact Details Bar (The Separator You Asked For) */
-    .contact-separator {
+    /* Contact Bar Style */
+    .contact-bar {
         border-top: 2px solid #FFD700; border-bottom: 2px solid #FFD700;
-        padding: 15px 0; margin: 30px 0; text-align: center;
-        background: rgba(30, 144, 255, 0.1); font-size: 16px; color: #FFD700;
-        font-weight: 600;
+        padding: 15px 0; margin: 25px 0; text-align: center;
+        background: rgba(30, 144, 255, 0.05); font-size: 15px; color: #FFD700;
     }
 
-    /* Product Cards */
+    /* Product Card Style (White Professional) */
     .product-card {
-        background: #0E1624; padding: 25px; border-radius: 25px;
-        border: 1px solid #1E293B; text-align: center; transition: 0.5s ease;
-        height: 480px; display: flex; flex-direction: column; justify-content: space-between;
+        background: white; padding: 12px; border-radius: 12px;
+        text-align: center; margin-bottom: 20px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.4); height: 460px;
+        display: flex; flex-direction: column; justify-content: space-between;
     }
-    .product-card:hover { border-color: #FFD700; transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
-    
-    .img-box {
-        width: 100%; height: 180px; background: #FFFFFF; border-radius: 20px;
-        display: flex; align-items: center; justify-content: center; margin-bottom: 15px; overflow: hidden;
+    .product-img {
+        width: 100%; height: 170px; object-fit: cover; border-radius: 8px;
     }
-    .img-box img { max-width: 130px; object-fit: contain; }
+    .price-tag {
+        background: #FFD700; color: #000; font-weight: bold;
+        padding: 3px 10px; border-radius: 4px; font-size: 12px; display: inline-block; margin-top: 8px;
+    }
+    .product-title { color: #0A192F; font-weight: 700; margin-top: 10px; font-size: 17px; }
+    .product-desc { color: #444; font-size: 12px; line-height: 1.3; height: 45px; overflow: hidden; }
     
     .whatsapp-btn {
-        background: #25D366; color: white !important; padding: 12px;
-        border-radius: 12px; text-decoration: none; display: block;
-        font-weight: bold; margin-top: 15px; font-size: 14px; text-align: center;
+        background: #25D366; color: white !important; padding: 10px;
+        border-radius: 8px; text-decoration: none; display: block;
+        font-weight: bold; font-size: 13px; text-align: center;
     }
 
-    /* Master Frame (One Frame Gallery) */
+    /* Master Frame Gallery */
     .master-gallery {
-        background: rgba(30, 144, 255, 0.05); border: 2px dashed #FFD700;
-        padding: 50px; border-radius: 40px; margin-top: 50px; margin-bottom: 50px;
+        background: rgba(255, 255, 255, 0.03); border: 2px dashed #FFD700;
+        padding: 35px; border-radius: 25px; margin: 40px 0;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- STABLE PRODUCT DATABASE (32 ITEMS) ---
+# --- MASTER DATABASE (36 PREMIUM ITEMS) ---
 products = [
-    {"n": "Mithila Makhana", "i": "https://img.icons8.com/fluency/200/lotus.png", "d": "GI-Tagged Premium Grade Foxnuts"},
-    {"n": "Yellow Maize", "i": "https://img.icons8.com/fluency/200/corn.png", "d": "Grade-A Non-GMO Cattle Feed Grains"},
-    {"n": "Fresh Edamame", "i": "https://img.icons8.com/fluency/200/soy.png", "d": "Premium Protein-Rich Green Soybeans"},
-    {"n": "Madhubani Art", "i": "https://img.icons8.com/fluency/200/art-project.png", "d": "Hand-painted Cultural Wall Heritage"},
-    {"n": "Golden Jute Fiber", "i": "https://img.icons8.com/fluency/200/shopping-bag.png", "d": "Eco-friendly Biodegradable Fiber"},
-    {"n": "Bhagalpuri Silk", "i": "https://img.icons8.com/fluency/200/towel.png", "d": "Pure Tussar Silk Handloom Textiles"},
-    {"n": "Turmeric Powder", "i": "https://img.icons8.com/fluency/200/curcuma.png", "d": "High Curcumin Natural Spices"},
-    {"n": "Red Chilli Powder", "i": "https://img.icons8.com/fluency/200/chili-pepper.png", "d": "Export-grade Spicy Teja Variety"},
-    {"n": "Bihar Sattu", "i": "https://img.icons8.com/fluency/200/flour-sack.png", "d": "Protein-Rich Roasted Gram Flour"},
-    {"n": "Red Onions", "i": "https://img.icons8.com/fluency/200/onion.png", "d": "Fresh Large Red Export Varieties"},
-    {"n": "Premium Garlic", "i": "https://img.icons8.com/fluency/200/garlic.png", "d": "Large Aromatic White Bulbs"},
-    {"n": "Fresh Ginger", "i": "https://img.icons8.com/fluency/200/ginger.png", "d": "Farm-fresh Pungent Raw Ginger"},
-    {"n": "Shahi Litchi", "i": "https://img.icons8.com/fluency/200/raspberry.png", "d": "Muzaffarpur World-famous GI Fruit"},
-    {"n": "Jardalu Mango", "i": "https://img.icons8.com/fluency/200/mango.png", "d": "GI-Tagged Sweet Bhagalpur Special"},
-    {"n": "Litchi Honey", "i": "https://img.icons8.com/fluency/200/honey.png", "d": "100% Raw Organic Bihar Honey"},
-    {"n": "Moringa Powder", "i": "https://img.icons8.com/fluency/200/leaf.png", "d": "Dried Nutritious Green Superfood"},
-    {"n": "Sunflower Seeds", "i": "https://img.icons8.com/fluency/200/sunflower.png", "d": "High-Oil Natural Farming Seeds"},
-    {"n": "Black Mustard", "i": "https://img.icons8.com/fluency/200/seeds.png", "d": "Strong Black Mustard Oil Seeds"},
-    {"n": "Basmati Rice", "i": "https://img.icons8.com/fluency/200/rice-bowl.png", "d": "Extra Long-grain Aromatic Rice"},
-    {"n": "Black Pepper", "i": "https://img.icons8.com/fluency/200/peppercorn.png", "d": "Bold Export Grade Whole Spice"},
-    {"n": "Seedless Lemon", "i": "https://img.icons8.com/fluency/200/lemon.png", "d": "Fresh High-Juice Farm Lemons"},
-    {"n": "Green Chilli", "i": "https://img.icons8.com/fluency/200/chili-pepper.png", "d": "Fresh Spicy Export Grade Chillies"},
-    {"n": "Onion Powder", "i": "https://img.icons8.com/fluency/200/spice-bottle.png", "d": "Pure Dehydrated White Powder"},
-    {"n": "Tamarind Slabs", "i": "https://img.icons8.com/fluency/200/dates.png", "d": "Tangy Bihar Origin Fruit Slabs"},
-    {"n": "Psyllium Husk", "i": "https://img.icons8.com/fluency/200/wheat.png", "d": "Pure Isabgol Fiber Export Grade"},
-    {"n": "Organic Incense", "i": "https://img.icons8.com/fluency/200/spa-flower.png", "d": "Aromatic Scented Agarbatti Sticks"},
-    {"n": "Fresh Potato", "i": "https://img.icons8.com/fluency/200/potato.png", "d": "Farm Fresh Red/White Table Quality"},
-    {"n": "Fresh Tomato", "i": "https://img.icons8.com/fluency/200/tomato.png", "d": "Red Ripe Farm Fresh Tomatoes"},
-    {"n": "Rosary Peas", "i": "https://img.icons8.com/fluency/200/beads.png", "d": "Traditional Bihar Seed Beads"},
-    {"n": "Coriander Seeds", "i": "https://img.icons8.com/fluency/200/parsley.png", "d": "Aromatic Whole Spices"},
-    {"n": "Chilli Flakes", "i": "https://img.icons8.com/fluency/200/paprika.png", "d": "Crushed Dried Premium Chillies"},
-    {"n": "Global Sourcing", "i": "https://img.icons8.com/fluency/200/plus.png", "d": "On-Demand Sourcing Specialist"}
+    {"n": "Mithila Makhana", "p": "Premium GI", "i": "https://images.unsplash.com/photo-1615485290382-441e4d019cb0?w=400", "d": "Grade-A Export Quality Foxnuts"},
+    {"n": "Yellow Maize", "p": "Grade-1", "i": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400", "d": "Non-GMO Cattle & Poultry Feed"},
+    {"n": "Organic Turmeric", "p": "High Curcumin", "i": "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400", "d": "Pure Fingers & Powdered Spice"},
+    {"n": "Bhagalpuri Silk", "p": "Handloom", "i": "https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400", "d": "Authentic Tussar Silk Fabrics"},
+    {"n": "Madhubani Art", "p": "Original", "i": "https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=400", "d": "Hand-painted Cultural Masterpieces"},
+    {"n": "Fresh Ginger", "p": "Bold Pungent", "i": "https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=400", "d": "Farm Fresh Aromatic Raw Ginger"},
+    {"n": "Red Chilli", "p": "Sun-Dried", "i": "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400", "d": "Extra Spicy Teja Variety Chillies"},
+    {"n": "Golden Jute Bags", "p": "Eco-Friendly", "i": "https://images.unsplash.com/photo-1605367104033-288339396328?w=400", "d": "Biodegradable Premium Fiber Bags"},
+    {"n": "Premium Garlic", "p": "White Large", "i": "https://images.unsplash.com/photo-1589623661413-c90a169f430c?w=400", "d": "Export Quality Long-Shelf Bulbs"},
+    {"n": "Bihar Sattu", "p": "Roasted Gram", "i": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=400", "d": "Traditional Energy Superfood Flour"},
+    {"n": "Red Onions", "p": "Nasik/Bihar", "i": "https://images.unsplash.com/photo-1508747703725-719777637510?w=400", "d": "Large Sized Fresh Pink & Red Onions"},
+    {"n": "Shahi Litchi", "p": "Muzaffarpur", "i": "https://images.unsplash.com/photo-1533220042424-df39912066f3?w=400", "d": "Sweet GI-Tagged Tropical Fruit"},
+    {"n": "Jardalu Mango", "p": "Bhagalpur", "i": "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400", "d": "Fragrant Special Quality Mangoes"},
+    {"n": "Litchi Honey", "p": "100% Raw", "i": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400", "d": "Natural Organic Honey from Orchards"},
+    {"n": "Moringa Leaf", "p": "Green Powder", "i": "https://images.unsplash.com/photo-1515255384510-23e8b7509f1b?w=400", "d": "High Nutrition Supplement Grade"},
+    {"n": "Sunflower Seeds", "p": "Oil Seeds", "i": "https://images.unsplash.com/photo-1500353391678-d7b57979d6d2?w=400", "d": "Sun-Dried Premium Farming Seeds"},
+    {"n": "Black Mustard", "p": "Micro Seeds", "i": "https://images.unsplash.com/photo-1615485500742-14073f1362d2?w=400", "d": "Strong Pungent Bihar Black Mustard"},
+    {"n": "Basmati Rice", "p": "Long Grain", "i": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400", "d": "Extra Long Grain Aromatic Rice"},
+    {"n": "Black Pepper", "p": "Whole Spice", "i": "https://images.unsplash.com/photo-1532135771460-d8308d665780?w=400", "d": "Premium Quality Peppercorns"},
+    {"n": "Seedless Lemon", "p": "Juice Rich", "i": "https://images.unsplash.com/photo-1585059895317-57519999a071?w=400", "d": "Thin Skin Commercial Grade Lemons"},
+    {"n": "Green Chilli", "p": "Spicy G4", "i": "https://images.unsplash.com/photo-1564660309852-5989608933ba?w=400", "d": "Long Green High Pungency Chillies"},
+    {"n": "Onion Powder", "p": "Dehydrated", "i": "https://images.unsplash.com/photo-1514986888952-8cd320577b68?w=400", "d": "Pure Export Quality Vegetable Powder"},
+    {"n": "Tamarind", "p": "Slab Packed", "i": "https://images.unsplash.com/photo-1596567182325-931051688892?w=400", "d": "Sweet & Sour Seedless Tamarind"},
+    {"n": "Psyllium Husk", "p": "Isabgol", "i": "https://images.unsplash.com/photo-1628548484584-9301857e4c71?w=400", "d": "99% Pure Natural Fiber Supplement"},
+    {"n": "Organic Incense", "p": "Agarbatti", "i": "https://images.unsplash.com/photo-1602166910041-9a7428801d0a?w=400", "d": "Eco-friendly Aromatic Sticks"},
+    {"n": "Table Potato", "p": "Fresh Red", "i": "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400", "d": "Dirt-free Large Table Quality Potatoes"},
+    {"n": "Fresh Tomato", "p": "Hybrid Red", "i": "https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?w=400", "d": "Farm Fresh Firm Tomatoes for Export"},
+    {"n": "Coriander", "p": "Whole Seed", "i": "https://images.unsplash.com/photo-1585325701956-60dd9c8553bc?w=400", "d": "Green Gold Whole Aromatic Seeds"},
+    {"n": "Chilli Flakes", "p": "Pizza Grade", "i": "https://images.unsplash.com/photo-1563765170-a3594b29337b?w=400", "d": "Premium Crushed Dried Chillies"},
+    {"n": "Soybeans", "p": "High Protein", "i": "https://images.unsplash.com/photo-1589927946927-248107770e06?w=400", "d": "Non-GMO Export Grade Soy Seeds"},
+    {"n": "Cumin Seeds", "p": "Jeera Whole", "i": "https://images.unsplash.com/photo-1509358271058-acd22cc93898?w=400", "d": "Aromatic High Oil Cumin Seeds"},
+    {"n": "Cardamom", "p": "Green Bold", "i": "https://images.unsplash.com/photo-1544927231-15b632948614?w=400", "d": "8mm Export Grade Green Cardamom"},
+    {"n": "Cloves", "p": "Lal Pari", "i": "https://images.unsplash.com/photo-1611771341253-dadb347165a8?w=400", "d": "Full Head Premium Brown Cloves"},
+    {"n": "Cinnamon", "p": "Quills", "i": "https://images.unsplash.com/photo-1556910602-3884ee13f586?w=400", "d": "Organic Cinnamon Bark Quills"},
+    {"n": "Fenugreek", "p": "Methi Seeds", "i": "https://images.unsplash.com/photo-1601050634129-075a0a7b4ca5?w=400", "d": "Machine Cleaned Yellowish Seeds"},
+    {"n": "Custom Sourcing", "p": "Service", "i": "https://images.unsplash.com/photo-1494412519320-aa613dfb7738?w=400", "d": "Global Sourcing On Demand Specialist"}
 ]
 
 # --- HEADER SECTION ---
@@ -99,87 +105,96 @@ st.markdown(f"""
         <img src="https://img.icons8.com/fluency/240/handshake.png" class="circular-logo">
         <div class="main-title">B-ROUTE GLOBAL</div>
     </div>
-    <div class="contact-separator">
-        📍 Supaul, Bihar, India | ✉️ sumits6363@gmail.com | 📞 +91 8252402895
+    <div class="contact-bar">
+        📍 Head Office: Supaul, Bihar, India | ✉️ Email: sumits6363@gmail.com | 📞 WhatsApp: +91 8252402895
     </div>
     """, unsafe_allow_html=True)
 
 # --- NAVIGATION ---
-menu = st.sidebar.radio("Navigation", ["🏠 Corporate Profile", "📦 Export Catalog", "📩 Official RFQ"])
+menu = st.sidebar.radio("Main Menu", ["🏠 Corporate Profile", "📦 Product Catalog", "📩 Business Inquiry Form"])
 
 # --- PAGE 1: CORPORATE PROFILE ---
 if menu == "🏠 Corporate Profile":
-    st.markdown("## 🏢 Corporate Overview")
+    st.markdown("## 🏢 Welcome to B-Route Global")
+    
     st.write("""
-    ### Connecting Bihar's Agricultural Excellence to Global Markets
-    *B-Route Global, headquartered in **Supaul, Bihar*, stands as a premier bridge between the fertile lands of India and the international trade arena. We specialize in identifying, sourcing, and delivering high-quality agricultural produce, traditional handicrafts, and industrial raw materials that define the identity of Bihar.
+    ### Leading the Future of Bihar's Global Exports
+    *B-Route Global, established and headquartered in **Supaul, Bihar*, is a fast-growing international trade facilitator dedicated to showcasing the agricultural richness and cultural heritage of Bihar to the world. We serve as a strategic bridge, connecting local producers, farmers, and artisans directly to international buyers across the Middle East, South East Asia, and Europe.
 
-    *Our Strategic Operations:*
-    In a world where supply chains are complex, B-Route Global simplifies the process. We operate on a model of *'Farm-to-Freight'*, where we work directly with local farmers and GI-certified producers. This direct connection ensures that our buyers receive the freshest produce while the local farming community gets the value they deserve.
+    ### Our Vision & Commitment
+    In a rapidly evolving global market, we believe that *Quality* and *Transparency* are the only ways to build lasting trust. Our focus is on GI-tagged products like *Mithila Makhana* and *Madhubani Art*, ensuring that these regional treasures receive the global recognition they deserve. We don't just export goods; we export the authenticity of Indian soil.
 
-    *Quality & Compliance:*
-    We understand that international trade requires strict adherence to standards. Whether it's the moisture content in *Yellow Maize* or the purity of *Mithila Makhana*, our team ensures every batch meets global ISO and export benchmarks.
+    ### Why B-Route Global is Your Preferred Partner:
+    * *Direct Sourcing Model:* By eliminating multiple layers of middlemen, we provide the freshest produce at the most competitive market prices.
+    * *Multi-Stage Quality Checks:* Every shipment undergoes rigorous testing for moisture, purity, and shelf-life compliance to meet destination country standards.
+    * *End-to-End Logistics Support:* From factory-stuffing to port delivery, our team manages the entire supply chain with real-time updates.
+    * *Community Empowerment:* We work with a network of over 500+ local farmers, helping them adopt export-quality farming practices.
 
-    *Our Vision:*
-    To become the most reliable sourcing partner for Bihar-origin products, recognized globally for integrity, quality, and our commitment to promoting regional heritage like *Madhubani Art* and *Bhagalpuri Silk*.
+    ### Strategic Advantage
+    Located in the fertile belt of North Bihar, we have a logistical advantage in sourcing *Yellow Maize* and *Honey* directly from the heartland. Our presence in Supaul allows us to maintain a low overhead, passing the cost-benefit directly to our international clients.
     """)
 
-    # THE "ONE FRAME" MASTER GALLERY
+    # ONE FRAME GALLERY
     st.markdown("<div class='master-gallery'>", unsafe_allow_html=True)
-    st.markdown("<h2 style='text-align:center; color:#FFD700; margin-bottom:40px;'>🖼️ Our Integrated Product Portfolio</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align:center; color:#FFD700; margin-bottom:35px;'>🖼️ Our Export Portfolio At A Glance</h2>", unsafe_allow_html=True)
     cols = st.columns(6)
     for idx, item in enumerate(products):
         with cols[idx % 6]:
             st.markdown(f"""
-                <div style="text-align:center; margin-bottom:25px;">
-                    <img src="{item['i']}" style="width:70px; background:white; border-radius:50%; padding:10px; border:2px solid #FFD700; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    <p style="font-size:11px; margin-top:8px; font-weight:600; color:#1E90FF;">{item['n']}</p>
+                <div style="text-align:center; margin-bottom:20px;">
+                    <img src="{item['i']}" style="width:70px; height:70px; background:white; border-radius:50%; padding:3px; border:2px solid #FFD700; object-fit:cover;">
+                    <p style="font-size:10px; margin-top:5px; font-weight:600; color:#1E90FF;">{item['n']}</p>
                 </div>
             """, unsafe_allow_html=True)
     st.markdown("</div>", unsafe_allow_html=True)
 
 # --- PAGE 2: CATALOG ---
-elif menu == "📦 Export Catalog":
-    st.markdown("<h2 style='color:#FFD700;'>📦 Global Export Catalog</h2>", unsafe_allow_html=True)
-    search_query = st.text_input("🔍 Search for products (e.g. Maize, Silk, Honey)...", "").lower()
+elif menu == "📦 Product Catalog":
+    st.markdown("<h2 style='color:#FFD700;'>📦 Our Full Export Range</h2>", unsafe_allow_html=True)
+    search_q = st.text_input("🔍 Search for a product (e.g. Maize, Makhana, Silk)...", "").lower()
     
-    filtered_products = [p for p in products if search_query in p['n'].lower()]
+    filtered_products = [p for p in products if search_q in p['n'].lower()]
     
-    if not filtered_products:
-        st.warning("Product not found. Please contact us for custom sourcing inquiries.")
-    else:
-        cols = st.columns(4)
-        for idx, item in enumerate(filtered_products):
-            with cols[idx % 4]:
-                st.markdown(f"""
-                    <div class="product-card">
-                        <div class="img-box"><img src="{item['i']}"></div>
-                        <div>
-                            <h4 style="color:#1E90FF; margin-bottom:5px;">{item['n']}</h4>
-                            <p style="font-size:12px; color:#ccc; line-height:1.4;">{item['d']}</p>
-                        </div>
-                        <a href="https://wa.me/918252402895?text=I am interested in importing {item['n']}." class="whatsapp-btn">SEND ENQUIRY</a>
+    cols = st.columns(4)
+    for idx, item in enumerate(filtered_products):
+        with cols[idx % 4]:
+            st.markdown(f"""
+                <div class="product-card">
+                    <div>
+                        <img src="{item['i']}" class="product-img">
+                        <div class="price-tag">{item['p']}</div>
+                        <div class="product-title">{item['n']}</div>
+                        <div class="product-desc">{item['d']}</div>
                     </div>
-                """, unsafe_allow_html=True)
+                    <a href="https://wa.me/918252402895?text=Enquiry for {item['n']}" class="whatsapp-btn">ENQUIRE ON WHATSAPP</a>
+                </div>
+            """, unsafe_allow_html=True)
 
-# --- PAGE 3: RFQ ---
-elif menu == "📩 Official RFQ":
-    st.markdown("## 📩 Request for Quotation (RFQ)")
-    st.info("Submit this form to receive our latest price list and shipping terms.")
-    with st.form("rfq_form"):
-        c1, c2 = st.columns(2)
-        comp_name = c1.text_input("Company / Individual Name")
-        contact_wa = c2.text_input("WhatsApp No (with country code)")
-        selected_items = st.multiselect("Select Products", [p['n'] for p in products])
-        volume = st.select_slider("Expected Order Volume", options=["Sample Order", "1-5 Tons", "5-25 Tons", "25-100 Tons", "100+ Tons"])
-        notes = st.text_area("Specific Shipping or Packaging Requirements")
+# --- PAGE 3: INQUIRY FORM ---
+elif menu == "📩 Business Inquiry Form":
+    st.markdown("## 📩 Business Inquiry & RFQ Form")
+    st.info("International buyers, please fill out the official Request for Quotation (RFQ) below.")
+    
+    with st.form("official_inquiry"):
+        col1, col2 = st.columns(2)
+        comp_name = col1.text_input("Company Name / Contact Person")
+        country = col2.selectbox("Destination Country", ["USA", "UAE", "Europe", "Vietnam", "Bangladesh", "Other"])
+        email = col1.text_input("Corporate Email Address")
+        phone = col2.text_input("WhatsApp / Contact Number")
         
-        if st.form_submit_button("SUBMIT OFFICIAL INQUIRY"):
-            if comp_name and contact_wa:
-                st.success(f"Thank you, {comp_name}. Your request is being processed. Our manager will contact you on WhatsApp.")
+        selected_prods = st.multiselect("Select Products of Interest", [p['n'] for p in products])
+        order_qty = st.select_slider("Anticipated Order Volume", options=["Trial/Sample", "1-20 Tons", "20-100 Tons", "100+ Tons"])
+        
+        requirements = st.text_area("Specific Packaging or Technical Requirements (Optional)")
+        
+        submitted = st.form_submit_button("SUBMIT OFFICIAL INQUIRY")
+        if submitted:
+            if comp_name and phone:
+                st.success(f"Thank you, {comp_name}! Your inquiry has been logged. Our Export Manager will contact you on {phone} shortly.")
                 st.balloons()
             else:
-                st.error("Please provide both Name and WhatsApp contact details.")
+                st.error("Please provide at least your Company Name and Contact Number.")
 
 # --- FOOTER ---
-st.markdown("<br><hr><center>© 2026 B-Route Global | Export Excellence from Supaul, Bihar | Globally Connected</center>", unsafe_allow_html=True)
+st.markdown("<br><hr><center>© 2026 B-Route Global | Exporting Bihar's Pride | Supaul, India</center>", unsafe_allow_html=True)
+Power corrupts absolutely power corrupts absolutely
