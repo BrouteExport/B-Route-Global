@@ -197,4 +197,5 @@ elif menu == "📩 Business Inquiry Form":
 
 # --- FOOTER ---
 st.markdown("<br><hr><center>© 2026 B-Route Global | Exporting Bihar's Pride | Supaul, India</center>", unsafe_allow_html=True)
-Power corrupts absolutely power corrupts absolutely
+
+
