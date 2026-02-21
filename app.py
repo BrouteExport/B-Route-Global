@@ -3,97 +3,80 @@ import streamlit as st
 # --- PAGE CONFIGURATION ---
 st.set_page_config(page_title="B-Route Global | Premium Indian Export", layout="wide", page_icon="🌍")
 
-# --- CSS (PREMIUM DARK & GOLD LOOK) ---
+# --- CSS (ULTRA-PREMIUM LOOK) ---
 st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Playfair+Display:wght@700&display=swap');
+    
     .stApp { background-color: #050B15; color: white; font-family: 'Poppins', sans-serif; }
     
-    /* HEADER SECTION */
+    /* Global Background */
+    [data-testid="stSidebar"] { background-color: #0A192F; }
+
+    /* Premium Header */
     .header-container {
-        background: linear-gradient(135deg, #001f3f, #1E90FF);
-        padding: 50px; border-radius: 0 0 40px 40px; text-align: center;
-        border-bottom: 5px solid #FFD700;
+        background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1600');
+        background-size: cover; background-position: center;
+        padding: 80px 20px; border-radius: 0 0 60px 60px; text-align: center;
+        border-bottom: 4px solid #FFD700;
     }
     .circular-logo {
         width: 150px; height: 150px; background: white; border-radius: 50%;
-        padding: 5px; border: 5px solid #FFD700; box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-        object-fit: contain;
+        padding: 5px; border: 4px solid #FFD700; box-shadow: 0 0 50px rgba(255, 215, 0, 0.4);
     }
-    .main-title { font-size: 45px; font-weight: 700; color: white; margin-top: 10px; letter-spacing: 4px; }
+    .main-title { 
+        font-family: 'Playfair Display', serif; font-size: 65px; color: #FFD700; 
+        margin-top: 20px; letter-spacing: 3px; text-shadow: 3px 3px 15px rgba(0,0,0,1);
+    }
     
     .contact-bar {
-        border-top: 2px solid #FFD700; border-bottom: 2px solid #FFD700;
-        padding: 12px 0; margin: 20px 0; text-align: center;
-        background: rgba(30, 144, 255, 0.1); color: #FFD700; font-weight: bold; font-size: 14px;
+        background: rgba(255, 215, 0, 0.1); border: 1px solid #FFD700;
+        padding: 15px; margin: 30px auto; width: 85%; border-radius: 50px;
+        text-align: center; color: #FFD700; font-weight: 600; font-size: 15px;
     }
 
-    /* PRODUCT CARD UI - ONE FRAME LOOK */
+    /* Product Cards - One Frame Look */
     .product-card {
-        background: white; padding: 12px; border-radius: 12px;
-        text-align: center; margin-bottom: 15px;
-        box-shadow: 0 8px 15px rgba(0,0,0,0.4); height: 490px;
+        background: #FFFFFF; padding: 15px; border-radius: 20px;
+        text-align: center; margin-bottom: 30px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.8); height: 520px;
         display: flex; flex-direction: column; justify-content: space-between;
-        transition: 0.3s ease-in-out;
+        transition: 0.4s; border: 2px solid transparent;
     }
-    .product-card:hover { transform: translateY(-5px); border: 2px solid #FFD700; }
+    .product-card:hover { transform: translateY(-12px); border: 2px solid #FFD700; }
     
-    .product-img { 
-        width: 100%; height: 210px; object-fit: cover; border-radius: 8px;
-    }
+    .product-img { width: 100%; height: 230px; object-fit: cover; border-radius: 12px; }
     
     .price-tag {
-        background: #FFD700; color: #000; font-weight: bold;
-        padding: 3px 10px; border-radius: 4px; font-size: 10px; margin-top: 8px;
-        display: inline-block; text-transform: uppercase;
+        background: #001f3f; color: #FFD700; font-weight: bold;
+        padding: 6px 15px; border-radius: 8px; font-size: 11px; margin-top: 12px;
+        display: inline-block; border: 1px solid #FFD700;
     }
-    .product-title { color: #0A192F; font-weight: 700; margin-top: 8px; font-size: 16px; line-height: 1.2; }
-    .product-desc { color: #555; font-size: 11px; line-height: 1.3; height: 45px; overflow: hidden; margin-top: 5px; }
+    .product-title { color: #0A192F; font-weight: 700; font-size: 19px; margin: 10px 0; }
+    .product-desc { color: #555; font-size: 13px; line-height: 1.4; height: 60px; overflow: hidden; }
     
     .whatsapp-btn {
-        background: #25D366; color: white !important; padding: 10px;
-        border-radius: 6px; text-decoration: none; display: block;
-        font-weight: bold; font-size: 13px; text-align: center; margin-top: 10px;
+        background: #25D366; color: white !important; padding: 12px;
+        border-radius: 12px; text-decoration: none; display: block;
+        font-weight: bold; font-size: 14px; text-align: center; margin-top: 15px;
     }
     </style>
     """, unsafe_allow_html=True)
 
-# --- THE BIG DATABASE (45+ ITEMS) ---
+# --- DATABASE ---
 products = [
-    # Grains
-    {"n": "Basmati Rice 1121", "p": "Premium Extra Long", "i": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400", "d": "Authentic aromatic long-grain 1121 Basmati."},
-    {"n": "Mithila Makhana", "p": "Bihar GI Tagged", "i": "https://images.unsplash.com/photo-1615485290382-441e4d019cb0?w=400", "d": "Handpicked Grade-A Foxnuts from Bihar."},
-    {"n": "Yellow Maize", "p": "Non-GMO Corn", "i": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400", "d": "Premium Yellow Maize for animal feed and industry."},
-    {"n": "Sona Masoori Rice", "p": "Steamed/Raw", "i": "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400", "d": "Fine quality lightweight aromatic rice."},
-    {"n": "Bihar Sattu", "p": "Roasted Chana Flour", "i": "https://images.unsplash.com/photo-1626132646529-500637534070?w=400", "d": "Traditional roasted gram flour, high in protein."},
-    
-    # Dry Fruits
-    {"n": "California Almonds", "p": "Handpicked Raw", "i": "https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?w=400", "d": "Rich in oil, crunchy California Almonds."},
-    {"n": "Cashew Nuts", "p": "W320 Whole White", "i": "https://images.unsplash.com/photo-1504196606672-aef5c9cefc92?w=400", "d": "Export quality whole white creamy Cashews."},
-    {"n": "Kashmiri Walnuts", "p": "Premium Paper-Shell", "i": "https://images.unsplash.com/photo-1520111663181-29499d36831b?w=400", "d": "High quality snow-white walnut kernels."},
-    {"n": "Seedless Raisins", "p": "Long Green/Black", "i": "https://images.unsplash.com/photo-1595123550441-d377e017de6a?w=400", "d": "Naturally sun-dried sweet Indian raisins."},
-    {"n": "Date Palm (Khajoor)", "p": "Premium Soft", "i": "https://images.unsplash.com/photo-1594910406606-25805561570d?w=400", "d": "Soft and sweet high-energy dates."},
-    {"n": "Chilgoza (Pine Nuts)", "p": "Himalayan Rare", "i": "https://images.unsplash.com/photo-1590004953392-5abc2e7df4ee?w=400", "d": "Nutritious and rare wild harvested pine nuts."},
-    {"n": "Pili Nuts", "p": "Exotic Gourmet", "i": "https://images.unsplash.com/photo-1614735241165-6756e1df61ab?w=400", "d": "Rich and creamy buttery gourmet nuts."},
-    
-    # Fruits
-    {"n": "Kashmiri Apples", "p": "Royal Red Delicious", "i": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400", "d": "Fresh, sweet and crunchy Kashmiri apples."},
-    {"n": "Alphonso Mango", "p": "King of Mangoes", "i": "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400", "d": "Aromatic, fiberless premium Alphonso mangoes."},
-    {"n": "Shahi Litchi", "p": "Muzaffarpur Special", "i": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400", "d": "Juicy and sweet Shahi Litchis from Bihar."},
-    {"n": "Jardalu Mango", "p": "Bhagalpur GI Tag", "i": "https://images.unsplash.com/photo-1591073113125-e46713c829ed?w=400", "d": "Exotic aromatic mangoes unique to Bihar."},
-    {"n": "Cavendish Banana", "p": "Export G9 Grade", "i": "https://images.unsplash.com/photo-1571771894821-ad996211fdf4?w=400", "d": "Large and firm high-quality green bananas."},
-    {"n": "Fresh Oranges", "p": "Nagpur Special", "i": "https://images.unsplash.com/photo-1582979512210-99b6a53386f9?w=400", "d": "Sweet and juicy Vitamin-C rich Nagpur oranges."},
-    {"n": "Pomegranate", "p": "Bhagwa Ruby Red", "i": "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400", "d": "Deep red seeds, high juice content pomegranate."},
-    
-    # Spices
-    {"n": "Turmeric Fingers", "p": "High Curcumin", "i": "https://images.unsplash.com/photo-1615485500741-8f9ce39299ac?w=400", "d": "Organic whole turmeric fingers."},
-    {"n": "Red Chilli", "p": "Teja Hot Whole", "i": "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400", "d": "Sun-dried spicy red chillies for global export."},
-    {"n": "Green Cardamom", "p": "8mm Bold Premium", "i": "https://images.unsplash.com/photo-1544927231-15b632948614?w=400", "d": "Aromatic bold green cardamom pods."},
-    
-    # Industrial & Misc
-    {"n": "Litchi Honey", "p": "100% Pure Raw", "i": "https://images.unsplash.com/photo-1584586129859-da0230f2526c?w=400", "d": "Raw honey from Bihar's litchi orchards."},
-    {"n": "Plastic Chairs", "p": "Molded Furniture", "i": "https://images.unsplash.com/photo-1503602642458-232111445657?w=400", "d": "Durable and modern industrial grade furniture."},
-    {"n": "Premium Glassware", "p": "Export Crystal", "i": "https://images.unsplash.com/photo-1544655554-150e7a256d0d?w=400", "d": "Crystal clear high-quality glassware sets."},
+    {"n": "Basmati Rice 1121", "p": "Premium Extra Long", "i": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500", "d": "Grade-A 1121 Sella Basmati. Extra long grain with unmatched aroma."},
+    {"n": "Mithila Makhana", "p": "Bihar GI Tag", "i": "https://images.unsplash.com/photo-1615485290382-441e4d019cb0?w=500", "d": "Pure organic Foxnuts from Bihar. Handpicked for global export."},
+    {"n": "Alphonso Mango", "p": "King of Mangoes", "i": "https://images.unsplash.com/photo-1553279768-865429fa0078?w=500", "d": "Ratnagiri Alphonso. Naturally ripened and export certified."},
+    {"n": "Shahi Litchi", "p": "Muzaffarpur Special", "i": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=500", "d": "Juicy, sweet, and red Shahi Litchis from the heart of Bihar."},
+    {"n": "Kashmiri Walnuts", "p": "Paper-Shell Grade", "i": "https://images.unsplash.com/photo-1520111663181-29499d36831b?w=500", "d": "Snow-white walnut kernels. High oil content and zero bitterness."},
+    {"n": "Turmeric Fingers", "p": "High Curcumin", "i": "https://images.unsplash.com/photo-1615485500741-8f9ce39299ac?w=500", "d": "Salem/Erode Turmeric. 5%+ Curcumin content for industrial use."},
+    {"n": "California Almonds", "p": "Raw Premium", "i": "https://images.unsplash.com/photo-1508817628294-5a453fa0b8fb?w=500", "d": "Large size California Badam. Best for retail packaging."},
+    {"n": "Chilgoza (Pine Nuts)", "p": "Wild Himalayan", "i": "https://images.unsplash.com/photo-1590004953392-5abc2e7df4ee?w=500", "d": "Rare Himalayan Pine Nuts. Rich in protein and minerals."},
+    {"n": "Jardalu Mango", "p": "Bihar GI Tag", "i": "https://images.unsplash.com/photo-1591073113125-e46713c829ed?w=500", "d": "Exclusive Bhagalpur Mango with a unique aroma and taste."},
+    {"n": "Green Cardamom", "p": "8mm Bold", "i": "https://images.unsplash.com/photo-1544927231-15b632948614?w=500", "d": "Deep green 8mm bold Cardamom. Sourced from Idukki, Kerala."},
+    {"n": "Sona Masoori Rice", "p": "Steam Quality", "i": "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400", "d": "Lightweight, aromatic, and easy-to-digest medium grain rice."},
+    {"n": "Red Chilli", "p": "Teja/S4 Hot", "i": "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400", "d": "High heat sun-dried red chillies with bright color."},
 ]
 
 # --- HEADER ---
@@ -101,23 +84,22 @@ st.markdown(f"""
     <div class="header-container">
         <img src="https://www.pngall.com/wp-content/uploads/2017/05/Globe-Free-PNG-Image.png" class="circular-logo">
         <div class="main-title">B-ROUTE GLOBAL</div>
+        <p style='color:white; font-size:20px; letter-spacing:2px;'>BRINGING BIHAR TO THE WORLD</p>
     </div>
     <div class="contact-bar">
-        📍 Supaul, Bihar | ✉️ sumits6363@gmail.com | 📞 +91 8252402895
+        📍 Head Office: Supaul, Bihar | ✉️ sumits6363@gmail.com | 📞 WhatsApp: +91 8252402895
     </div>
     """, unsafe_allow_html=True)
 
-# --- NAVIGATION ---
-menu = st.sidebar.radio("Navigation", ["📦 Product Catalog", "🏢 About Us", "📩 Business Inquiry"])
+menu = st.sidebar.radio("Navigation", ["📦 Global Catalog", "🏢 Company Profile", "📩 Business RFQ"])
 
-# --- CATALOG (MAIN ONE-FRAME VIEW) ---
-if menu == "📦 Product Catalog":
-    st.markdown("<h3 style='text-align:center; color:#FFD700;'>🌍 GLOBAL EXPORT CATALOG</h3>", unsafe_allow_html=True)
-    search = st.text_input("🔍 Search product (Rice, Makhana, Mango, etc.)", "")
+# --- CATALOG (HOME PAGE FEEL) ---
+if menu == "📦 Global Catalog":
+    st.markdown("<h2 style='text-align:center; color:#FFD700;'>EXCELLENCE IN EVERY EXPORT</h2>", unsafe_allow_html=True)
+    search = st.text_input("🔍 Search our premium collection...", "")
     
     filtered = [p for p in products if search.lower() in p['n'].lower()]
     
-    # Grid Layout
     cols = st.columns(4)
     for idx, item in enumerate(filtered):
         with cols[idx % 4]:
@@ -129,39 +111,35 @@ if menu == "📦 Product Catalog":
                         <div class="product-title">{item['n']}</div>
                         <div class="product-desc">{item['d']}</div>
                     </div>
-                    <a href="https://wa.me/918252402895?text=Hello B-Route Global, I am interested in: {item['n']}" target="_blank" class="whatsapp-btn">ORDER ENQUIRY</a>
+                    <a href="https://wa.me/918252402895?text=I'm interested in: {item['n']}" class="whatsapp-btn">ORDER ENQUIRY</a>
                 </div>
             """, unsafe_allow_html=True)
 
-# --- ABOUT US (REMAINING SAME) ---
-elif menu == "🏢 About Us":
+# --- PROFILE ---
+elif menu == "🏢 Company Profile":
     st.markdown("## 🏢 Corporate Profile")
+    st.image("https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1000")
     st.write("""
-    ### Exporting Indian Excellence to Global Horizons
-    *B-Route Global, operating from **Supaul, Bihar*, is a premier Merchant Exporting company. 
-    We bridge the gap between India's traditional producers and the global supply chain. 
-    Our mission is to deliver GI-tagged products like *Mithila Makhana* with 100% purity.
+    *B-Route Global* is not just an export company; we are custodians of India's agricultural legacy. 
+    Based in *Supaul, Bihar*, we specialize in high-demand GI-tagged products.
+    - *Vision:* To become the most trusted link between Bihar's farmers and global markets.
+    - *Quality:* Every shipment passes through 3 stages of inspection.
+    - *Logistics:* Seamless shipping to Middle East, Europe, and USA.
     """)
-    st.image("https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1000", caption="Global Quality Standards")
 
-# --- INQUIRY FORM (BETTER & COMPLETE) ---
-elif menu == "📩 Business Inquiry":
+# --- RFQ ---
+elif menu == "📩 Business RFQ":
     st.markdown("## 📩 Business Inquiry (RFQ)")
-    with st.form("rfq_form"):
-        col1, col2 = st.columns(2)
-        name = col1.text_input("Full Name / Company Name")
-        wa = col2.text_input("WhatsApp Number (with Country Code)")
-        
-        # Product options from database + "Other"
-        product_options = [p['n'] for p in products] + ["OTHER / CUSTOM SOURCING"]
-        selected = st.multiselect("Select Products of Interest", product_options)
-        
-        requirements = st.text_area("Specific Requirements (Quantity, Destination, Grade, etc.)")
+    with st.form("rfq"):
+        c1, c2 = st.columns(2)
+        company = c1.text_input("Buyer Name / Company")
+        wa = c2.text_input("WhatsApp Number")
+        selected = st.multiselect("Select Products", [p['n'] for p in products] + ["Other Custom Product"])
+        msg = st.text_area("Order Details (Quantity, Target Port, etc.)")
         
         if st.form_submit_button("SUBMIT RFQ"):
-            if name and wa and selected:
-                st.success(f"Thank you {name}! Your inquiry for {len(selected)} products has been received. We will contact you on WhatsApp.")
-            else:
-                st.error("Please fill in Name, WhatsApp, and select at least one Product.")
+            st.balloons()
+            st.success("Your RFQ has been sent! Our export manager will contact you on WhatsApp.")
 
-st.markdown("<br><hr><center>© 2026 B-Route Global | Export Excellence from India</center>", unsafe_allow_html=True)
+st.markdown("<br><hr><center>© 2026 B-Route Global | Supaul, Bihar, India</center>", unsafe_allow_html=True)
+
