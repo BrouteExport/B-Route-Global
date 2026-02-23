@@ -1,159 +1,152 @@
-import streamlit as st
-
-# --- CONFIG ---
-st.set_page_config(page_title="B-Route Global | International Export Division", layout="wide", page_icon="🚢")
-
-# --- CUSTOM CSS (PREMIUM CORPORATE LOOK) ---
-st.markdown("""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Export-Import Trading Co.</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
-    html, body, [class*="css"] { font-family: 'Roboto', sans-serif; }
-    .stApp { background-color: #f8f9fa; color: #1a1a1a; }
-    
-    /* Hero Header */
-    .hero-bg {
-        background: linear-gradient(rgba(0,31,63,0.9), rgba(0,31,63,0.9)), 
-                    url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1470');
-        background-size: cover; padding: 80px 20px; text-align: center; color: white; border-bottom: 5px solid #C5A021;
-    }
-    .logo-img { width: 100px; margin-bottom: 20px; filter: drop-shadow(0px 0px 10px rgba(255,255,255,0.3)); }
-    
-    /* Product Cards */
-    .p-card {
-        background: white; border-radius: 4px; padding: 0px; margin-bottom: 30px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid #001f3f;
-        height: 480px; display: flex; flex-direction: column; transition: 0.3s;
-    }
-    .p-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
-    .p-img { width: 100%; height: 200px; object-fit: cover; }
-    .p-content { padding: 15px; flex-grow: 1; }
-    .p-title { font-size: 18px; font-weight: 700; color: #001f3f; margin-bottom: 5px; text-transform: uppercase; }
-    .p-grade { background: #eef2f7; color: #001f3f; padding: 3px 8px; font-size: 11px; font-weight: bold; border-radius: 3px; }
-    
-    /* Footer */
-    .footer { background: #001f3f; color: #d1d1d1; padding: 40px; text-align: center; font-size: 14px; margin-top: 50px; }
-    
-    /* Buttons */
-    .order-btn {
-        background: #C5A021; color: white !important; text-align: center;
-        padding: 12px; display: block; text-decoration: none; font-weight: bold; margin: 15px; border-radius: 3px;
-    }
+        html { scroll-behavior: smooth; }
+        .sidebar { transition: 0.4s ease-in-out; width: 0; overflow: hidden; }
+        .sidebar.active { width: 280px; }
+        .product-card:hover { transform: translateY(-5px); transition: 0.3s; }
     </style>
-    """, unsafe_allow_html=True)
+</head>
+<body class="bg-gray-50 font-sans text-gray-900">
 
-# --- DATA: 45+ PRODUCTS ---
-# Yahan maine data ko organize kiya hai
-product_data = [
-    # Grains
-    {"n": "Basmati Rice 1121", "g": "XXL Grain", "i": "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400", "d": "Extra long grain steam basmati rice with premium aroma."},
-    {"n": "Non-Basmati Rice", "g": "IR-64 Long Grain", "i": "https://images.unsplash.com/photo-1516684732162-798a0062be99?w=400", "d": "Silky polished, broken-free white rice."},
-    {"n": "Mithila Makhana", "g": "6-Plus Grade", "i": "https://5.imimg.com/data5/SELLER/Default/2022/9/WI/XF/XN/13142721/phool-makhana-500x500.jpg", "d": "GI Tagged Foxnuts from Bihar, naturally processed."},
-    {"n": "Yellow Maize", "g": "Human/Feed Grade", "i": "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400", "d": "Premium Bihar corn with high protein and low moisture."},
-    # Fruits
-    {"n": "Shahi Litchi", "g": "Export Grade", "i": "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400", "d": "Handpicked Muzaffarpur litchis in temperature-controlled packing."},
-    {"n": "Alphonso Mango", "g": "Grade A Premium", "i": "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400", "d": "The king of mangoes, sourced from Ratnagiri farms."},
-    {"n": "Pomegranate", "g": "Bhagwa Variety", "i": "https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=400", "d": "Deep red pearls with soft seeds and high juice content."},
-    # Spices
-    {"n": "Turmeric Fingers", "g": "Nizamabad/Selam", "i": "https://images.unsplash.com/photo-1615485500741-8f9ce39299ac?w=400", "d": "High Curcumin content, double polished turmeric fingers."},
-    {"n": "Green Cardamom", "g": "8mm Bold", "i": "https://images.unsplash.com/photo-1544927231-15b632948614?w=400", "d": "Premium Kerala cardamom with intense natural aroma."},
-    {"n": "Dry Red Chilli", "g": "S4/Teja/Byadgi", "i": "https://images.unsplash.com/photo-1594282486552-05b4d80fbb9f?w=400", "d": "Sun-dried whole chillies with bright red color."},
-    # Add more to reach 45+ following the same format...
-]
-
-# --- HEADER SECTION ---
-st.markdown(f"""
-    <div class="hero-bg">
-        <img src="https://cdn-icons-png.flaticon.com/512/3061/3061341.png" class="logo-img">
-        <h1 style="font-size: 50px; margin-bottom: 10px;">B-ROUTE GLOBAL</h1>
-        <p style="font-size: 20px; color: #C5A021; font-weight: bold;">PREMIUM MERCHANT EXPORTER & SUPPLY CHAIN PARTNER</p>
-        <p style="max-width: 800px; margin: 0 auto; opacity: 0.9;">Leading the way in sourcing and exporting high-quality Indian agricultural products, spices, and industrial goods to global markets.</p>
+    <div id="mySidebar" class="sidebar fixed top-0 left-0 h-full bg-slate-900 text-white z-50 pt-20 shadow-2xl border-r border-blue-500/30">
+        <a href="javascript:void(0)" onclick="toggleNav()" class="absolute top-4 right-6 text-4xl">&times;</a>
+        <a href="#home" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800 border-b border-gray-700">🏠 Home</a>
+        <a href="#products" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800 border-b border-gray-700">📦 Our 45+ Products</a>
+        <a href="#inquiry" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800 border-b border-gray-700">📝 Business Inquiry</a>
     </div>
-    """, unsafe_allow_html=True)
 
-# --- NAVIGATION ---
-tabs = st.tabs(["🏠 Home", "📦 Product Catalog", "🛳️ Logistics & Ports", "📩 Business RFQ"])
+    <button onclick="toggleNav()" class="fixed top-6 left-6 z-40 bg-blue-900 text-white px-5 py-3 rounded-full shadow-2xl flex items-center gap-2 hover:bg-blue-700 transition">
+        <i class="fas fa-bars"></i> <span class="font-bold uppercase tracking-widest text-sm">Menu</span>
+    </button>
 
-# --- TAB 1: HOME ---
-with tabs[0]:
-    st.markdown("### 🏢 Corporate Profile")
-    col1, col2 = st.columns([2, 1])
-    with col1:
-        st.write("""
-        *B-Route Global*, headquartered in Supaul, Bihar, stands as a beacon of quality in the Indian export sector. 
-        We act as a vital bridge between India's rich agricultural heartlands and the international market. 
-        Our specialty lies in sourcing GI-tagged products like Mithila Makhana and Shahi Litchi, ensuring 
-        they meet the stringent phytosanitary standards of the EU, USA, and Gulf countries.
-        
-        *Our Core Values:*
-        * *Quality Assurance:* Every shipment undergoes multi-level inspection.
-        * *Traceability:* We monitor the journey from farm to port.
-        * *Global Logistics:* Efficient CIF/FOB delivery timelines.
-        """)
-    with col2:
-        st.info("📍 *Head Office:* Supaul, Bihar, India\n\n✉️ *Email:* sumits6363@gmail.com\n\n📞 *Phone:* +91 8252402895")
-
-# --- TAB 2: CATALOG ---
-with tabs[1]:
-    st.markdown("### 🌍 Export-Ready Inventory")
-    search = st.text_input("🔍 Search Inventory (e.g., Rice, Mango, Spices)...")
-    
-    filtered = [p for p in product_data if search.lower() in p['n'].lower()]
-    
-    cols = st.columns(4)
-    for idx, item in enumerate(filtered):
-        with cols[idx % 4]:
-            st.markdown(f"""
-                <div class="p-card">
-                    <img src="{item['i']}" class="p-img">
-                    <div class="p-content">
-                        <span class="p-grade">{item['g']}</span>
-                        <div class="p-title">{item['n']}</div>
-                        <div style="font-size:13px; color:#666;">{item['d']}</div>
-                    </div>
-                    <a href="https://wa.me/918252402895?text=RFQ for {item['n']}" class="order-btn">SEND RFQ</a>
+    <section id="home" class="min-h-screen pt-24 px-6 md:px-24 bg-white">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+            <div class="flex items-center gap-4">
+                <div class="w-20 h-20 bg-blue-900 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-xl italic">
+                    LOGO
                 </div>
-            """, unsafe_allow_html=True)
-
-# --- TAB 3: LOGISTICS ---
-with tabs[2]:
-    st.markdown("### 🛳️ Major Shipping Hubs (India)")
-    st.write("We ensure smooth transit through India's premier maritime gateways.")
-    
-    port_cols = st.columns(3)
-    ports = [
-        {"name": "Mundra Port, Gujarat", "img": "https://images.unsplash.com/photo-1520106212299-d99c443e4568?w=500", "desc": "India's largest private port for global connectivity."},
-        {"name": "JNPT, Mumbai", "img": "https://images.unsplash.com/photo-1494412574743-019485676a31?w=500", "desc": "Major container terminal for European shipments."},
-        {"name": "Haldia Port, WB", "img": "https://images.unsplash.com/photo-1577705998148-6da4f3963bc8?w=500", "desc": "Strategic gateway for North-East & Bihar exports."}
-    ]
-    
-    for i, port in enumerate(ports):
-        with port_cols[i]:
-            st.image(port['img'], caption=port['name'])
-            st.caption(port['desc'])
-
-# --- TAB 4: RFQ FORM ---
-with tabs[3]:
-    st.markdown("### 📩 Official Request for Quotation (RFQ)")
-    with st.form("rfq_form"):
-        c1, c2 = st.columns(2)
-        with c1:
-            st.text_input("Full Name / Company Name")
-            st.text_input("Official Email ID")
-            st.selectbox("Incoterms", ["FOB (Free on Board)", "CIF (Cost, Insurance, Freight)", "CFR (Cost & Freight)"])
-        with c2:
-            st.text_input("Contact Number (with Country Code)")
-            st.selectbox("Destination Country", ["UAE", "USA", "UK", "Saudi Arabia", "Vietnam", "Europe", "Other"])
-            st.text_input("Quantity Required (e.g., 20ft Container, 10MT)")
+                <div>
+                    <h1 class="text-4xl font-extrabold text-slate-900 tracking-tighter uppercase">Global Trade Connect</h1>
+                    <p class="text-blue-600 font-bold tracking-widest text-sm uppercase">Premier Export Solutions</p>
+                </div>
+            </div>
+            
+            <div class="text-right text-gray-600 space-y-1 bg-gray-50 p-4 rounded-lg border-l-4 border-blue-900">
+                <p class="flex items-center justify-end gap-2"><i class="fas fa-map-marker-alt text-blue-900"></i> 123, Industrial Export Zone, Port Road, India</p>
+                <p class="flex items-center justify-end gap-2"><i class="fas fa-envelope text-blue-900"></i> export@tradeconnect.com</p>
+                <p class="flex items-center justify-end gap-2"><i class="fas fa-phone text-blue-900"></i> +91 98765 43210</p>
+            </div>
+        </div>
         
-        st.text_area("Packaging & Labeling Requirements")
-        if st.form_submit_button("Submit RFQ"):
-            st.success("Your inquiry has been sent to our Export Manager. We will respond within 24 hours.")
+        <div class="w-full h-[2px] bg-gradient-to-r from-transparent via-gray-400 to-transparent mb-16"></div>
 
-# --- FOOTER ---
-st.markdown("""
-    <div class="footer">
-        <p><b>B-Route Global</b> | MSME Registered | Export License Holder</p>
-        <p>Operational Excellence in International Trade</p>
-        <p>© 2026 All Rights Reserved.</p>
-    </div>
-    """, unsafe_allow_html=True)
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl font-black mb-8 text-slate-800 uppercase tracking-tight italic">About Our Company</h2>
+            <div class="text-xl text-gray-700 leading-relaxed space-y-6 text-justify">
+                <p>
+                    With over two decades of excellence, *Global Trade Connect* stands as a beacon of trust in the international import-export landscape. We specialize in bridging the gap between premium manufacturers and global markets, ensuring that quality meets demand with surgical precision. 
+                </p>
+                <p>
+                    Our core strength lies in our robust supply chain management and deep-rooted relationships with local producers. From rigorous quality auditing to seamless customs clearance, our dedicated logistics team handles every shipment with extreme care. We don’t just deliver goods; we deliver global growth and sustainable partnerships that transcend borders.
+                </p>
+            </div>
+
+            <div class="mt-16 rounded-3xl overflow-hidden shadow-2xl border-8 border-white group">
+                <img src="https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&q=80&w=1600" 
+                     alt="Global Shipping Port" 
+                     class="w-full h-[500px] object-cover group-hover:scale-105 transition duration-700">
+                <div class="bg-blue-900 text-white p-6 text-center font-bold tracking-widest uppercase italic">
+                    Global Logistics & Container Port Operations
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="min-h-screen p-10 md:p-24 bg-slate-50">
+        <h2 class="text-5xl font-black text-center mb-4 text-slate-900">OUR EXPORT CATALOG</h2>
+        <p class="text-center text-gray-500 mb-16 font-medium">Explore our range of 45+ Premium Export Quality Products</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="product-card bg-white rounded-2xl overflow-hidden shadow-md border border-gray-100">
+                <div class="h-56 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1586201375761-83865001e31c?w=500" alt="Basmati Rice" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-slate-800 mb-2 uppercase">Premium Basmati Rice</h3>
+                    <p class="text-gray-500 text-sm mb-6">Long-grain, aromatic rice sourced directly from the Himalayan foothills.</p>
+                    <a href="https://wa.me/919876543210?text=I am interested in Premium Basmati Rice" target="_blank" 
+                       class="flex items-center justify-center gap-2 bg-green-600 text-white font-black py-3 rounded-xl hover:bg-green-700 transition">
+                        <i class="fab fa-whatsapp text-xl"></i> WHATSAPP US
+                    </a>
+                </div>
+            </div>
+            </div>
+    </section>
+
+    <section id="inquiry" class="min-h-screen py-24 px-6 bg-blue-900 flex items-center justify-center">
+        <div class="max-w-4xl w-full bg-white p-8 md:p-16 rounded-[40px] shadow-2xl">
+            <h2 class="text-4xl font-black text-slate-900 mb-2 uppercase italic">Business Inquiry</h2>
+            <p class="text-gray-500 mb-10 font-bold tracking-wide">Fill the form below to receive a custom quote.</p>
+            
+            <form class="space-y-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="relative">
+                        <label class="uppercase text-xs font-black text-blue-900 tracking-widest">Your Full Name</label>
+                        <input type="text" placeholder="Enter name here" class="w-full border-b-2 border-gray-300 focus:border-blue-600 outline-none py-3 text-lg bg-transparent">
+                    </div>
+                    <div class="relative">
+                        <label class="uppercase text-xs font-black text-blue-900 tracking-widest">Connect No. (WhatsApp)</label>
+                        <input type="text" placeholder="+91 00000 00000" class="w-full border-b-2 border-gray-300 focus:border-blue-600 outline-none py-3 text-lg bg-transparent">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="relative">
+                        <label class="uppercase text-xs font-black text-blue-900 tracking-widest">Official E-mail</label>
+                        <input type="email" placeholder="example@company.com" class="w-full border-b-2 border-gray-300 focus:border-blue-600 outline-none py-3 text-lg bg-transparent">
+                    </div>
+                    <div class="relative">
+                        <label class="uppercase text-xs font-black text-blue-900 tracking-widest">Country / Destination</label>
+                        <input type="text" placeholder="USA, Dubai, Germany etc." class="w-full border-b-2 border-gray-300 focus:border-blue-600 outline-none py-3 text-lg bg-transparent">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="uppercase text-xs font-black text-blue-900 tracking-widest mb-4 block">Select Product Category</label>
+                    <select class="w-full bg-gray-50 border-2 border-gray-200 p-4 rounded-2xl font-bold text-slate-700 focus:border-blue-600 outline-none">
+                        <option>Choose from our 45+ Products</option>
+                        <option>Agriculture & Spices</option>
+                        <option>Textiles & Garments</option>
+                        <option>Industrial Machinery</option>
+                        <option>Chemicals & Raw Materials</option>
+                        <option>Other / Specific Requirement</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="uppercase text-xs font-black text-blue-900 tracking-widest mb-4 block">Describe Your Requirements</label>
+                    <textarea rows="4" placeholder="Mention quantity, quality grade, and shipping terms..." class="w-full bg-gray-50 border-2 border-gray-200 p-5 rounded-2xl focus:border-blue-600 outline-none text-lg"></textarea>
+                </div>
+
+                <button class="w-full bg-blue-900 text-white font-black py-5 rounded-2xl hover:bg-slate-800 transition-all shadow-xl text-xl tracking-widest uppercase">
+                    Submit Quotation Request
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        function toggleNav() {
+            const sidebar = document.getElementById("mySidebar");
+            sidebar.classList.toggle("active");
+        }
+    </script>
+</body>
+</html>
