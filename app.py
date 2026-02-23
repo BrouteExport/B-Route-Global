@@ -1,9 +1,10 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-st.set_page_config(page_title="Global Trade Connect | Official", layout="wide")
+# Page config
+st.set_page_config(page_title="B-ROUTE GLOBAL", layout="wide")
 
-# Professional HTML & CSS with Real Product Loop
+# Theme aur Sidebar Navigation ke liye CSS/HTML
 html_template = """
 <!DOCTYPE html>
 <html>
@@ -12,127 +13,114 @@ html_template = """
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         html { scroll-behavior: smooth; }
-        .sidebar { transition: 0.4s; width: 0; overflow: hidden; position: fixed; z-index: 100; top: 0; left: 0; height: 100%; background: #0f172a; }
+        body { background-color: #0f172a; color: white; font-family: 'Inter', sans-serif; }
+        .sidebar { transition: 0.4s; width: 0; overflow: hidden; position: fixed; z-index: 100; top: 0; left: 0; height: 100%; background: #1e293b; border-right: 2px solid #3b82f6; }
         .sidebar.active { width: 280px; }
-        .product-card:hover { transform: translateY(-10px); transition: 0.3s; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .product-card:hover { transform: scale(1.05); transition: 0.3s; }
+        input, select, textarea { background: #1e293b !important; color: white !important; border: 1px solid #3b82f6 !important; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <div id="mySidebar" class="sidebar text-white pt-20 shadow-2xl">
-        <a href="javascript:void(0)" onclick="toggleNav()" class="absolute top-4 right-6 text-4xl">&times;</a>
-        <a href="#home" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800">🏠 Home</a>
-        <a href="#products" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800">📦 Export Products</a>
-        <a href="#inquiry" onclick="toggleNav()" class="block p-5 text-xl hover:bg-blue-800">📝 Business Inquiry</a>
+    <div id="mySidebar" class="sidebar pt-20 shadow-2xl">
+        <a href="javascript:void(0)" onclick="toggleNav()" class="absolute top-4 right-6 text-4xl text-white">&times;</a>
+        <a href="#home" onclick="toggleNav()" class="block p-5 text-xl text-white hover:bg-blue-600">🏠 Home</a>
+        <a href="#catalog" onclick="toggleNav()" class="block p-5 text-xl text-white hover:bg-blue-600">📦 Catalog Products</a>
+        <a href="#inquiry" onclick="toggleNav()" class="block p-5 text-xl text-white hover:bg-blue-600">📝 Business Inquiry</a>
     </div>
 
-    <button onclick="toggleNav()" class="fixed top-6 left-6 z-50 bg-blue-900 text-white px-6 py-3 rounded-full shadow-2xl font-bold">
+    <button onclick="toggleNav()" class="fixed top-6 left-6 z-50 bg-blue-600 text-white px-5 py-2 rounded shadow-lg font-bold">
         <i class="fas fa-bars"></i> MENU
     </button>
 
-    <section id="home" class="min-h-screen pt-24 px-8 md:px-24 bg-white">
-        <div class="flex flex-col md:flex-row justify-between items-start mb-12">
-            <div class="flex items-center gap-5">
-                <div class="w-20 h-20 bg-blue-900 rounded-xl flex items-center justify-center shadow-lg">
-                    <i class="fas fa-globe-americas text-white text-4xl"></i>
-                </div>
-                <div>
-                    <h1 class="text-5xl font-black text-slate-900 tracking-tight uppercase">Global Trade Connect</h1>
-                    <p class="text-blue-600 font-bold tracking-widest uppercase text-sm">Official Export & Import Division</p>
-                </div>
+    <section id="home" class="min-h-screen pt-20 px-8 md:px-24">
+        <div class="flex flex-col md:flex-row items-center gap-10 mb-12">
+            <div class="w-40 h-40 bg-white rounded-full flex items-center justify-center border-4 border-blue-500 shadow-xl overflow-hidden">
+                 <img src="https://i.ibb.co/L9Y05M7/logo-placeholder.png" alt="B-Route Logo" style="width: 80%;">
             </div>
-            <div class="mt-6 md:mt-0 text-right text-gray-500 text-sm font-medium">
-                <p><i class="fas fa-envelope text-blue-900"></i> exports@tradeconnect.com</p>
-                <p><i class="fas fa-phone text-blue-900"></i> +91 98765 43210</p>
-                <p><i class="fas fa-map-marker-alt text-blue-900"></i> Port Area, Gujarat, India</p>
+            <div>
+                <h1 class="text-6xl font-black text-blue-500 tracking-tight">B-ROUTE GLOBAL</h1>
+                <div class="mt-4 text-xl space-y-2">
+                    <p><i class="fas fa-map-marker-alt text-red-500"></i> Supaul, Bihar, India</p>
+                    <p><i class="fas fa-envelope text-blue-400"></i> sumits6363@gmail.com</p>
+                    <p><i class="fas fa-phone text-green-400"></i> +91 8252402895</p>
+                </div>
             </div>
         </div>
 
-        <hr class="border-gray-200 mb-16">
+        <div class="w-full h-[2px] bg-blue-500 my-10"></div>
 
-        <h2 class="text-4xl font-bold mb-8 italic">About Our Company</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <p class="text-xl text-gray-600 leading-relaxed text-justify">
-                We are a globally recognized export-import firm, bridging the gap between quality manufacturers and international buyers. With a network spanning 50+ countries, we specialize in high-grade agricultural products, industrial machinery, and premium textiles. Our logistics framework ensures that every shipping container reaches its destination port on time, with full safety and compliance.
+        <h2 class="text-5xl font-bold mb-6 flex items-center gap-4">🏢 About Our Company</h2>
+        <div class="glass p-8 rounded-3xl mb-12">
+            <p class="text-xl leading-relaxed text-gray-300">
+                <b>B-Route Global Export</b> is a premier export house based in <b>Supaul, Bihar</b>. We bridge the gap between Bihar's finest products and the global market with transparency and quality. Our mission is to ensure reliability and top-tier quality for our global partners. We take immense pride in our direct sourcing model, bringing the heart of India's agricultural and artistic heritage to the world. From the lush fields of Bihar producing world-class Makhana and Litchi to the intricate looms of Bhagalpur, we handle every shipment with precision. We are committed to sustainable trade practices and building long-term relationships through trust and exceptional service quality.
             </p>
-            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=800&q=80" 
-                 class="rounded-3xl shadow-2xl border-4 border-white h-80 w-full object-cover" alt="Port Container">
+        </div>
+
+        <div class="rounded-3xl overflow-hidden border-4 border-blue-900 shadow-2xl mb-20">
+            <img src="https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1600" 
+                 class="w-full h-[500px] object-cover" alt="Port Container">
         </div>
     </section>
 
-    <section id="products" class="min-h-screen p-10 md:p-24 bg-slate-100">
-        <h2 class="text-5xl font-black text-center mb-4 text-slate-900">OUR PRODUCT CATALOG</h2>
-        <p class="text-center text-gray-500 mb-16 font-semibold">45+ Real Export Quality Items</p>
-        
+    <section id="catalog" class="min-h-screen p-10 md:p-24 bg-[#0a0f1e]">
+        <h2 class="text-5xl font-black text-center mb-12 text-blue-500">REAL PRODUCT CATALOG</h2>
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             </div>
     </section>
 
-    <section id="inquiry" class="min-h-screen py-24 bg-blue-900 flex items-center justify-center px-6">
-        <div class="max-w-4xl w-full bg-white p-12 rounded-[40px] shadow-2xl">
-            <h2 class="text-4xl font-black text-slate-900 mb-2 uppercase italic">Business Inquiry</h2>
-            <p class="text-gray-500 mb-10 font-bold">Submit your requirements for global shipping quotes.</p>
-            
-            <form class="space-y-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="text" placeholder="Full Name" class="border-b-2 p-3 outline-none focus:border-blue-600 bg-transparent">
-                    <input type="text" placeholder="WhatsApp / Contact No" class="border-b-2 p-3 outline-none focus:border-blue-600 bg-transparent">
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="email" placeholder="Email Address" class="border-b-2 p-3 outline-none focus:border-blue-600 bg-transparent">
-                    <input type="text" placeholder="Target Country" class="border-b-2 p-3 outline-none focus:border-blue-600 bg-transparent">
-                </div>
-                <select id="product-dropdown" class="w-full border-2 p-4 rounded-xl font-bold bg-gray-50">
-                    <option>Select Product Category</option>
+    <section id="inquiry" class="min-h-screen py-24 px-6 flex items-center justify-center">
+        <div class="max-w-4xl w-full glass p-12 rounded-[40px] shadow-2xl">
+            <h2 class="text-4xl font-bold mb-8 text-blue-500 uppercase italic">Business Inquiry Form</h2>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <input type="text" placeholder="Full Name" class="p-4 rounded-xl outline-none">
+                <input type="text" placeholder="Connect No / WhatsApp" class="p-4 rounded-xl outline-none">
+                <input type="email" placeholder="Email Address" class="p-4 rounded-xl outline-none">
+                <input type="text" placeholder="Country" class="p-4 rounded-xl outline-none">
+                
+                <select id="prod-select" class="p-4 rounded-xl outline-none md:col-span-1">
+                    <option>Select Product</option>
+                    <option>Other Product</option>
                 </select>
-                <textarea rows="4" placeholder="Describe your quantity and quality requirements..." class="w-full border-2 p-4 rounded-xl bg-gray-50"></textarea>
-                <button type="button" class="w-full bg-blue-900 text-white font-black py-5 rounded-2xl hover:bg-black transition shadow-xl uppercase tracking-widest">
-                    Submit Quotation Request
+
+                <select class="p-4 rounded-xl outline-none md:col-span-1">
+                    <option>Quantity (Select Weight)</option>
+                    <option>1 to 10 Tons</option>
+                    <option>10 to 50 Tons</option>
+                    <option>50 to 100 Tons</option>
+                    <option>Above 100 Tons</option>
+                </select>
+
+                <textarea placeholder="Describe your requirement..." class="p-4 rounded-xl h-32 md:col-span-2"></textarea>
+                <button type="button" class="md:col-span-2 bg-blue-600 text-white font-bold py-5 rounded-2xl hover:bg-blue-700 transition uppercase tracking-widest">
+                    Submit Inquiry
                 </button>
             </form>
         </div>
     </section>
 
     <script>
-        const productsList = [
-            { name: "Premium Basmati Rice", img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400" },
-            { name: "Organic Turmeric", img: "https://images.unsplash.com/photo-1615485242232-493407985794?w=400" },
-            { name: "Red Dry Chilli", img: "https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400" },
-            { name: "Yellow Maize (Corn)", img: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400" },
-            { name: "Soybean Seeds", img: "https://images.unsplash.com/photo-1599599810694-b5b37304c041?w=400" },
-            { name: "Raw Cotton Bales", img: "https://images.unsplash.com/photo-1594144408252-c07343e86474?w=400" },
-            { name: "Cashew Nuts (W320)", img: "https://images.unsplash.com/photo-1536591040356-0174bb089736?w=400" },
-            { name: "Fresh Pomegranate", img: "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?w=400" },
-            { name: "Black Pepper", img: "https://images.unsplash.com/photo-1532139154603-3793201429ad?w=400" },
-            { name: "Green Cardamom", img: "https://images.unsplash.com/photo-1609142807730-1376fba3a228?w=400" },
-            { name: "Wheat Flour (Atta)", img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=400" },
-            { name: "Industrial Fasteners", img: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400" }
-            // ... Yahan 45+ products automatic loop se bante hain
+        const products = [
+            "Makhana", "Makka", "Chilly Powder", "Tamarind", "Chilli Flakes", "Rosary Peas", "Psyllium Husk", "Onion Powder", "Edamame", "Sunflower Seeds", "Incense Sticks", "Turmeric", "Moringa Powder", "Mango", "Litchii", "Orange", "Watermelon", "Madhubani Paintings", "Bhagalpur Silk", "Tomato", "Onion", "Garlic", "Lemon", "Broccoli", "Cauliflower", "Okra", "Cucumber", "Potato", "Brinjal", "Green Chilly", "Coconut Powder", "Adhesives", "Glassware", "Plastic", "Chairs", "Green Cardamom", "Dried Red Chilly", "Date Palm", "Black Pepper", "Capsicum", "Coriander", "Cumin Seeds", "Nutmeg", "Mustard", "Cinnamon", "Cloves", "Nutmeg Mace", "Bay Leaf", "Pine Nuts", "Walnut", "Black Cardamom", "Carom Seed", "Pumpkin Seeds", "Soy Nuts", "Betel Nuts", "Prunes", "Pistachio", "Almonds", "Peanut", "Cashews", "Watermelon Seeds", "Flax", "Raisins", "Fig", "Funnel"
         ];
 
-        // Creating more products for display
-        for(let i=1; i<=35; i++) {
-            productsList.push({ name: "Export Item #" + (i+12), img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400" });
-        }
-
         const grid = document.getElementById('product-grid');
-        const dropdown = document.getElementById('product-dropdown');
+        const select = document.getElementById('prod-select');
 
-        productsList.forEach(p => {
+        products.forEach(p => {
             // Add to Grid
             grid.innerHTML += `
-                <div class="product-card bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 p-2">
-                    <img src="${p.img}" class="w-full h-56 object-cover rounded-2xl mb-4">
-                    <div class="p-4">
-                        <h3 class="text-xl font-bold text-slate-800 mb-4">${p.name}</h3>
-                        <a href="https://wa.me/919876543210?text=Inquiry for ${p.name}" class="bg-green-600 text-white block text-center py-3 rounded-xl font-bold hover:bg-green-700 transition">
-                            <i class="fab fa-whatsapp"></i> WHATSAPP US
-                        </a>
-                    </div>
+                <div class="product-card glass rounded-3xl overflow-hidden p-4">
+                    <img src="https://source.unsplash.com/400x300/?${p}" class="w-full h-48 object-cover rounded-2xl mb-4" onerror="this.src='https://images.unsplash.com/photo-1542838132-92c53300491e?w=400'">
+                    <h3 class="text-xl font-bold text-blue-400 mb-4">${p}</h3>
+                    <a href="https://wa.me/918252402895?text=I am interested in ${p}" class="bg-green-600 text-white block text-center py-2 rounded-xl font-bold">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
                 </div>`;
             
-            // Add to Dropdown
-            dropdown.innerHTML += <option>${p.name}</option>;
+            // Add to Form
+            select.innerHTML += <option>${p}</option>;
         });
 
         function toggleNav() {
@@ -143,4 +131,4 @@ html_template = """
 </html>
 """
 
-components.html(html_template, height=3500, scrolling=True)
+components.html(html_template, height=5000, scrolling=True)
