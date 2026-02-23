@@ -1,14 +1,1 @@
-# Web Framework
-flask==3.0.0
-
-# Database handling
-Flask-SQLAlchemy==3.1.1
-
-# For sending Emails from the Inquiry Form
-Flask-Mail==0.9.1
-
-# For securing the forms
-Flask-WTF==1.2.1
-
-# Production server
-gunicorn==21.2.0
+streamli
