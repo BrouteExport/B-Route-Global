@@ -5,7 +5,7 @@ st.set_page_config(page_title="B-ROUTE GLOBAL | Official", layout="wide")
 
 # Product List (70+ Items)
 all_products = [
-    "Makhana", "Makka", "Chilly Powder", "Tamarind", "Chilli Flakes", "Rosary Peas", "Psyllium Husk", "Onion Powder", 
+    "Makhana", "Maize Corn", "Chilly Powder", "Tamarind", "Chilli Flakes", "Rosary Peas", "Psyllium Husk", "Onion Powder", 
     "Edamame", "Sunflower Seeds", "Incense sticks", "Turmeric", "Moringa powder", "Mango", "Litchii", "Orange", 
     "Watermelon", "Madhubani paintings", "Bhagalpur silk", "Tomato", "Onion", "Garlic", "Lemon", "Broccoli", 
     "Cauliflower", "Okra", "Cucumber", "Potato", "Brinjal", "Green chilly", "Coconut powder", "Adhesives", 
@@ -15,7 +15,7 @@ all_products = [
     "Pistachio", "Almonds", "Peanuts", "Cashews", "Watermelon seeds", "Flax", "Raisins", "Fig", "Fennel"
 ]
 
-# Sidebar Menu with proper Logic
+# Sidebar Menu
 with st.sidebar:
     st.markdown("### 🧭 Navigation")
     st.markdown("[🏠 Home](#home)")
@@ -25,6 +25,7 @@ with st.sidebar:
     st.info("B-Route Global Export - Official Portal")
 
 # Main Content
+# Note: Maine image link ko 'source.unsplash.com' se 'images.unsplash.com' par update kiya hai for better results
 html_code = f"""
 <!DOCTYPE html>
 <html>
@@ -58,7 +59,7 @@ html_code = f"""
             <div class="text-right space-y-2 border-l-4 border-blue-600 pl-6">
                 <p class="text-xl font-bold"><i class="fas fa-envelope text-blue-500 mr-2"></i> sumits6363@gmail.com</p>
                 <p class="text-xl font-bold"><i class="fas fa-phone text-green-500 mr-2"></i> +91 8252402895</p>
-                <p class="text-gray-400 font-bold uppercase tracking-widest">Supaul, Bihar, India - 852131</p>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-sm">Supaul, Bihar, India - 852131</p>
             </div>
         </div>
 
@@ -90,13 +91,13 @@ html_code = f"""
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
             {"".join([f'''
             <div class="product-card glass p-4 rounded-[30px]">
-                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=60&w=500&keyword={p}" class="w-full h-56 object-cover rounded-2xl mb-4 shadow-lg">
+                <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=60&w=500&sig={i}" class="w-full h-56 object-cover rounded-2xl mb-4 shadow-lg" loading="lazy">
                 <h3 class="text-2xl font-bold text-white mb-6 tracking-tight">{p}</h3>
-                <a href="https://wa.me/918252402895?text=Hi B-Route Global, I am interested in {p}." class="bg-green-600 text-white block text-center py-4 rounded-2xl font-black hover:bg-green-700 shadow-xl">
+                <a href="https://wa.me/918252402895?text=Hi B-Route Global, I am interested in {p}." target="_blank" class="bg-green-600 text-white block text-center py-4 rounded-2xl font-black hover:bg-green-700 shadow-xl transition">
                     <i class="fab fa-whatsapp mr-2"></i> WHATSAPP US
                 </a>
             </div>
-            ''' for p in all_products])}
+            ''' for i, p in enumerate(all_products)])}
         </div>
     </section>
 
@@ -113,7 +114,7 @@ html_code = f"""
                 </div>
                 <div class="space-y-6">
                     <select class="w-full p-5 rounded-2xl bg-[#0f172a] border border-blue-900 focus:border-blue-500 outline-none text-gray-400">
-                        <option>Select Product Category</option>
+                        <option>Select Product</option>
                         {"".join([f"<option>{p}</option>" for p in all_products])}
                         <option>Other / Multiple Products</option>
                     </select>
@@ -135,10 +136,24 @@ html_code = f"""
         </div>
     </section>
 
+    <script>
+        // Automatic high-quality image replacement logic for 70+ products
+        const images = document.querySelectorAll('.product-card img');
+        const keywords = {all_products};
+        
+        images.forEach((img, index) => {{
+            const query = keywords[index].replace(' ', ',');
+            img.src = https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=60&w=500&sig=${{index}}&query=${{query}};
+            
+            // Fallback for better visual variety
+            if(index % 3 === 0) img.src = https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&q=60&w=500&sig=${{index}};
+            if(index % 5 === 0) img.src = https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=60&w=500&sig=${{index}};
+        }});
+    </script>
+
 </body>
 </html>
 """
 
 # Rendering the code
 components.html(html_code, height=12000, scrolling=True)
-
