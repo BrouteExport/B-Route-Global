@@ -141,3 +141,4 @@ html_code = f"""
 
 # Rendering the code
 components.html(html_code, height=12000, scrolling=True)
+
