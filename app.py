@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 
 st.set_page_config(page_title="B-ROUTE GLOBAL | Official", layout="wide")
 
-# Product List (70+ Items)
+# Product List
 all_products = [
     "Makhana", "Maize Corn", "Chilly Powder", "Tamarind", "Chilli Flakes", "Rosary Peas", "Psyllium Husk", "Onion Powder", 
     "Edamame", "Sunflower Seeds", "Incense sticks", "Turmeric", "Moringa powder", "Mango", "Litchii", "Orange", 
@@ -15,17 +15,8 @@ all_products = [
     "Pistachio", "Almonds", "Peanuts", "Cashews", "Watermelon seeds", "Flax", "Raisins", "Fig", "Fennel"
 ]
 
-# Sidebar Menu
-with st.sidebar:
-    st.markdown("### 🧭 Navigation")
-    st.markdown("[🏠 Home](#home)")
-    st.markdown("[📦 Product Catalog](#catalog)")
-    st.markdown("[📝 Business Inquiry](#inquiry)")
-    st.write("---")
-    st.info("B-Route Global Export - Official Portal")
+# Sidebar ko hata diya gaya hai taaki menu HTML ke andar smoothly chale
 
-# Main Content
-# Note: Maine image link ko 'source.unsplash.com' se 'images.unsplash.com' par update kiya hai for better results
 html_code = f"""
 <!DOCTYPE html>
 <html>
@@ -35,15 +26,34 @@ html_code = f"""
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Roboto:wght@300;700&display=swap');
         html {{ scroll-behavior: smooth; }}
-        body {{ background-color: #020617; color: white; font-family: 'Roboto', sans-serif; }}
+        body {{ background-color: #020617; color: white; font-family: 'Roboto', sans-serif; padding-top: 80px; }}
         .header-font {{ font-family: 'Orbitron', sans-serif; }}
         .glass {{ background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(59, 130, 246, 0.2); }}
         .product-card {{ transition: 0.4s; border: 1px solid #1e293b; }}
         .product-card:hover {{ transform: translateY(-10px); border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }}
         .blue-gradient {{ background: linear-gradient(90deg, #1e40af 0%, #3b82f6 100%); }}
+        
+        /* New Fixed Navbar Style */
+        .navbar {{
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(2, 6, 23, 0.9); backdrop-filter: blur(10px);
+            border-bottom: 1px solid #1e293b; padding: 15px 30px;
+            display: flex; justify-content: center; gap: 30px;
+        }}
+        .navbar a {{
+            color: #94a3b8; text-decoration: none; font-weight: bold; 
+            text-transform: uppercase; font-size: 14px; transition: 0.3s;
+        }}
+        .navbar a:hover {{ color: #3b82f6; }}
     </style>
 </head>
 <body>
+
+    <nav class="navbar">
+        <a href="#home"><i class="fas fa-home mr-2"></i> Home</a>
+        <a href="#catalog"><i class="fas fa-box mr-2"></i> Product Catalog</a>
+        <a href="#inquiry"><i class="fas fa-edit mr-2"></i> Business Inquiry</a>
+    </nav>
 
     <section id="home" class="min-h-screen p-6 md:p-12">
         <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-16 glass p-8 rounded-[40px]">
@@ -66,13 +76,13 @@ html_code = f"""
         <h2 class="text-4xl font-black header-font mb-8 text-blue-400 uppercase italic">About Our Company</h2>
         <div class="glass p-10 rounded-3xl leading-relaxed text-lg text-gray-200 shadow-2xl">
             <p class="mb-6">
-                <b>B-Route Global Export</b> stands as a beacon of excellence in the international trade landscape, headquartered in the heart of <b>Supaul, Bihar</b>. Our journey began with a single vision: to showcase the untapped potential of Bihar's rich agricultural and cultural heritage to the entire world. We don't just export products; we export trust, quality, and the hardworking spirit of Indian farmers and artisans. 
+                <b>B-Route Global Export</b> stands as a beacon of excellence in the international trade landscape, headquartered in the heart of <b>Supaul, Bihar</b>. Our journey began with a single vision: to showcase the untapped potential of Bihar's rich agricultural and cultural heritage to the entire world.
             </p>
             <p class="mb-6">
-                Our strategic location in Bihar allows us to source world-renowned products like <b>Premium Makhana (Fox Nuts)</b>, <b>Bhagalpur Silk</b>, and the GI-tagged <b>Shahi Litchi</b> directly from the source, ensuring unparalleled freshness and competitive pricing. We have built a robust supply chain that bridges the gap between local manufacturers and global buyers in Europe, the Middle East, and South-East Asia. Every product undergoes a rigorous 3-step quality check—from sourcing to processing and finally, international standard packaging.
+                Our strategic location in Bihar allows us to source world-renowned products like <b>Premium Makhana (Fox Nuts)</b>, <b>Bhagalpur Silk</b>, and the GI-tagged <b>Shahi Litchi</b> directly from the source.
             </p>
             <p>
-                We specialize in a massive range of products including high-grade spices, fresh vegetables, artistic <b>Madhubani Paintings</b>, and industrial materials. At B-Route Global, we believe in sustainable trade. By choosing us, you aren't just getting a supplier; you are getting a dedicated logistics partner committed to transparent communication, 24/7 support, and on-time delivery at any global port. Our goal is to become the leading trade bridge for Bihar, empowering local communities while serving global needs.
+                We specialize in a massive range of products including high-grade spices, fresh vegetables, artistic <b>Madhubani Paintings</b>, and industrial materials.
             </p>
         </div>
 
@@ -136,24 +146,9 @@ html_code = f"""
         </div>
     </section>
 
-    <script>
-        // Automatic high-quality image replacement logic for 70+ products
-        const images = document.querySelectorAll('.product-card img');
-        const keywords = {all_products};
-        
-        images.forEach((img, index) => {{
-            const query = keywords[index].replace(' ', ',');
-            img.src = https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=60&w=500&sig=${{index}}&query=${{query}};
-            
-            // Fallback for better visual variety
-            if(index % 3 === 0) img.src = https://images.unsplash.com/photo-1512149177596-f817c7ef5d4c?auto=format&fit=crop&q=60&w=500&sig=${{index}};
-            if(index % 5 === 0) img.src = https://images.unsplash.com/photo-1596040033229-a9821ebd058d?auto=format&fit=crop&q=60&w=500&sig=${{index}};
-        }});
-    </script>
-
 </body>
 </html>
 """
 
-# Rendering the code
+# Rendering
 components.html(html_code, height=12000, scrolling=True)
